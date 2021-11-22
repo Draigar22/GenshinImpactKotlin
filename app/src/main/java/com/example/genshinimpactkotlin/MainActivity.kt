@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val bt = findViewById<Button>(R.id.button1)
-        val activity = Intent(this, Prueba::class.java)
+        val activity = Intent(this, Compose::class.java)
         bt.setOnClickListener { startActivity(activity) }
     }
 }

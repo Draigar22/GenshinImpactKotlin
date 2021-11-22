@@ -3,11 +3,17 @@ package com.example.genshinimpactkotlin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+
+
+import androidx.compose.ui.res.painterResource
 import com.example.genshinimpactkotlin.ui.theme.GenshinImpactKotlinTheme
 
 class Compose : ComponentActivity() {
@@ -15,24 +21,25 @@ class Compose : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GenshinImpactKotlinTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                MyComponent()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun MyComponent() {
+    Row()
+        {
+            MyImage()
+        }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    GenshinImpactKotlinTheme {
-        Greeting("Android")
-    }
+fun MyImage() {
+    Image(
+        painterResource(R.drawable.ic_launcher_foreground),
+        "Mi imagen de prueba",
+        modifier = Modifier.clip(CircleShape).background(Color.Gray)
+    )
 }
