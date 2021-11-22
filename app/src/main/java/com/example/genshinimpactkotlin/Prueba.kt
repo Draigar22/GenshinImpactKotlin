@@ -11,9 +11,8 @@ class Prueba : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prueba)
-        val mDatabase: DatabaseReference
         val iv = findViewById<ImageView>(R.id.imageView2)
-        mDatabase = FirebaseDatabase.getInstance().reference
+        val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
         mDatabase.child("Image").child("characters").child("kamisatoayaka").child("icon")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {

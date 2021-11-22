@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:910599036136:android:b5857bc63dca52ac093d5d",
+        "mobilesdk_app_id": "1:910599036136:android:992372cd563d29f3093d5d",
         "android_client_info": {
-          "package_name": "com.example.genshinimpactdb"
+          "package_name": "com.example.genshinimpactkotlin"
         }
       },
       "oauth_client": [
