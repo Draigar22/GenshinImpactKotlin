@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GenshinImpactKotlin</string>
+    <string name="title_activity_compose">Compose</string>
 </resources>
