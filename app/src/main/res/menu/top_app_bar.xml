@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_24"
-        android:title="Hola"
-        android:contentDescription="hola"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/more"
         android:title="adios"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_search_24dp"
+        android:title="@string/Buscar"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom" />
 </menu>
