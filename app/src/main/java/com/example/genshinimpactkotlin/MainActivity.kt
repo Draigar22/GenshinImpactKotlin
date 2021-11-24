@@ -1,63 +1,72 @@
 package com.example.genshinimpactkotlin
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import okhttp3.internal.cache.DiskLruCache
 
 class MainActivity : AppCompatActivity() {
     val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
+//    val characters:ArrayList<CharacterImageNameList> = arrayListOf()
+    val characters:ArrayList<CharacterImageNameList> = arrayListOf(CharacterImageNameList("hola", "hola"))
     var idioma = "Spanish"
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
+        mDatabase.keepSynced(true)
         setContentView(R.layout.activity_main)
         val mToolbar = findViewById<Toolbar>(R.id.topAppBar)
         setSupportActionBar(mToolbar)
+//        val bt = findViewById<Button>(R.id.button1)
+//        val activity = Intent(this, Prueba::class.java)
+//        bt.setOnClickListener { startActivity(activity) }
 
-        val bt = findViewById<Button>(R.id.button1)
-        val activity = Intent(this, Prueba::class.java)
+        fillCharacter()
 
-        val characters:ArrayList<CharacterImageNameList> = fillCharacter()
-        println("HOLAAAAAAAAAAAAAAAAAAAA" + characters.count())
-        characters.forEach{
-            println(it)
-        }
 
-        bt.setOnClickListener { startActivity(activity) }
+    }
 
+    @SuppressLint("CutPasteId")
+    fun initRecycler() {
+        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = LinearLayoutManager(this)
+        val adapter = CharacterAdapter(characters.toMutableList())
+        findViewById<RecyclerView>(R.id.rvCharacters).adapter = adapter
     }
 
     /**
      *
-     * Se encarga de llamar a los métodos necesarios para devolver un ArrayList<CharacterImageNameList>
-     * Relleno con todos los nombres de los personajes y avatares correspondiente
+     * Se encarga de llamar a los métodos necesarios para rellenar @param="characters:ArrayList"
+     * con todos los nombres de los personajes e iconos correspondiente
      *
      */
-    private fun fillCharacter(): ArrayList<CharacterImageNameList> {
-        val characters:ArrayList<CharacterImageNameList> = arrayListOf()
+    private fun fillCharacter() {
         mDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val allCharacters:ArrayList<String> = queryCharacters(snapshot)
-                val namesCharacters:ArrayList<String> = queryNamesCharacters(snapshot, allCharacters)
-                val avatarCharacters:ArrayList<String> = questAvatarCharacters(snapshot, allCharacters)
-                for (num in 0 until allCharacters.count()) {
-                    characters.add(
-                        CharacterImageNameList(namesCharacters[num], avatarCharacters[num])
-                    )
-                }
-//                    Picasso.get().load(snapshot.value.toString()).into(iv)
+//                val allCharacters:ArrayList<String> = queryCharacters(snapshot)
+//                val namesCharacters:ArrayList<String> = queryNamesCharacters(snapshot, allCharacters)
+//                val iconCharacter:ArrayList<String> = questAvatarCharacters(snapshot, allCharacters)
+//                for (num in 0 until allCharacters.count()) {
+//                    characters.add(
+//                        CharacterImageNameList(namesCharacters[num], iconCharacter[num])
+//
+//                    )
+//                    println(allCharacters)
+//                }
+                initRecycler()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-        return characters
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -85,12 +94,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun questAvatarCharacters(snapshot: DataSnapshot, allCharacters: ArrayList<String>): ArrayList<String> {
         val avatarCharacters:ArrayList<String> = arrayListOf()
-        snapshot.child("Image").child("characters").children.forEachIndexed { index, dataSnapshot ->
-            avatarCharacters.add(dataSnapshot.child(allCharacters[index]).child("icon").getValue().toString())
-
-        }
-        avatarCharacters.forEach{
-            println(it)
+        val snapshotaux:DataSnapshot = snapshot.child("Image").child("characters")
+        for (num in 0 until allCharacters.count()) {
+            avatarCharacters.add(
+                snapshotaux.child(allCharacters[num])
+                    .child("icon").value.toString())
         }
         return avatarCharacters
     }
@@ -101,8 +109,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun queryNamesCharacters(snapshot: DataSnapshot, allCharacters: ArrayList<String>): ArrayList<String> {
         val namesCharacters:ArrayList<String> = arrayListOf()
-        snapshot.child("Data").child(idioma).child("characters").children.forEachIndexed { index, dataSnapshot ->
-            namesCharacters.add(dataSnapshot.child(allCharacters[index]).child("name").getValue().toString())
+        val snapshotaux:DataSnapshot = snapshot.child("Data").child(idioma).child("characters")
+        for (num in 0 until allCharacters.count()) {
+            namesCharacters.add(
+                snapshotaux.child(allCharacters[num])
+                    .child("name").value.toString())
         }
         return namesCharacters
     }
