@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("CutPasteId")
     fun initRecycler() {
 
-        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = GridLayoutManager(applicationContext,3)
+        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = GridLayoutManager(applicationContext,5, LinearLayoutManager.VERTICAL, false)
 //        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = LinearLayoutManager(this)
         val adapter = CharacterAdapter(characters.toMutableList())
         findViewById<RecyclerView>(R.id.rvCharacters).adapter = adapter
