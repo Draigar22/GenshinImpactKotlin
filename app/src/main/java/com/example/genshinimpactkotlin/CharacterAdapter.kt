@@ -1,5 +1,6 @@
 package com.example.genshinimpactkotlin
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Transformation
 
 class CharacterAdapter(val character:List<CharacterImageNameList>):
     RecyclerView.Adapter<CharacterAdapter.CharacterHolder>() {

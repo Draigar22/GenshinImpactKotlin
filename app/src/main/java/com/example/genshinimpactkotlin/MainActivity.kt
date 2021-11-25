@@ -1,44 +1,43 @@
 package com.example.genshinimpactkotlin
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
-import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.database.*
-import okhttp3.internal.cache.DiskLruCache
 
 class MainActivity : AppCompatActivity() {
-    val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
-//    val characters:ArrayList<CharacterImageNameList> = arrayListOf()
-    val characters:ArrayList<CharacterImageNameList> = arrayListOf(CharacterImageNameList("hola", "hola"))
+    val mDatabase:FirebaseDatabase = FirebaseDatabase.getInstance()
+    val dbSource:TaskCompletionSource<DataSnapshot> = TaskCompletionSource()
+    val task = dbSource.task
+    val characters:ArrayList<CharacterImageNameList> = arrayListOf()
+    val allCharacters:ArrayList<String> = arrayListOf()
+    val namesCharacters:ArrayList<String> = arrayListOf()
+    val iconsCharacters:ArrayList<String> = arrayListOf()
     var idioma = "Spanish"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mDatabase.keepSynced(true)
         setContentView(R.layout.activity_main)
         val mToolbar = findViewById<Toolbar>(R.id.topAppBar)
         setSupportActionBar(mToolbar)
-//        val bt = findViewById<Button>(R.id.button1)
-//        val activity = Intent(this, Prueba::class.java)
-//        bt.setOnClickListener { startActivity(activity) }
+//        idioma = String
 
-        fillCharacter()
+        startQuerys(
+            mDatabase.getReference("Data/$idioma/characters"),
+            mDatabase.getReference("Image/characters")
+        )
 
 
-    }
 
-    @SuppressLint("CutPasteId")
-    fun initRecycler() {
-        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = LinearLayoutManager(this)
-        val adapter = CharacterAdapter(characters.toMutableList())
-        findViewById<RecyclerView>(R.id.rvCharacters).adapter = adapter
+
     }
 
     /**
@@ -47,27 +46,48 @@ class MainActivity : AppCompatActivity() {
      * con todos los nombres de los personajes e iconos correspondiente
      *
      */
-    private fun fillCharacter() {
-        mDatabase.addValueEventListener(object : ValueEventListener {
+    private fun startQuerys(refCharacters:DatabaseReference, refImagesCharacters:DatabaseReference) {
+        refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-//                val allCharacters:ArrayList<String> = queryCharacters(snapshot)
-//                val namesCharacters:ArrayList<String> = queryNamesCharacters(snapshot, allCharacters)
-//                val iconCharacter:ArrayList<String> = questAvatarCharacters(snapshot, allCharacters)
-//                for (num in 0 until allCharacters.count()) {
-//                    characters.add(
-//                        CharacterImageNameList(namesCharacters[num], iconCharacter[num])
-//
-//                    )
-//                    println(allCharacters)
-//                }
-                initRecycler()
+                dbSource.setResult(snapshot)
+                queryCharacters(snapshot)
+                queryNamesCharacters(snapshot)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         })
+
+        refImagesCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                queryIconCharacters(snapshot)
+                fillCharacters()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
     }
+
+    private fun fillCharacters() {
+        for (num in 0 until allCharacters.count()) {
+            characters.add(
+                CharacterImageNameList(namesCharacters[num], iconsCharacters[num])
+            )
+        }
+        initRecycler()
+    }
+
+    @SuppressLint("CutPasteId")
+    fun initRecycler() {
+
+        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = GridLayoutManager(applicationContext,3)
+//        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = LinearLayoutManager(this)
+        val adapter = CharacterAdapter(characters.toMutableList())
+        findViewById<RecyclerView>(R.id.rvCharacters).adapter = adapter
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
@@ -79,43 +99,37 @@ class MainActivity : AppCompatActivity() {
      * Recibe un snapshot para hacer la query correspondiente para devolver un arraylist de strings
      * con los nombres (estos serán como claves ya que tienen el mismo nombre en otras rutas)
      */
-    private fun queryCharacters(snapshot: DataSnapshot): ArrayList<String> {
-        val allcharacters:ArrayList<String> = arrayListOf()
-        snapshot.child("Image").child("characters").children.forEach{
-            allcharacters.add(it.key.toString())
-
+    private fun queryCharacters(snapshot: DataSnapshot) {
+        snapshot.children.forEach {
+            allCharacters.add(it.key.toString())
         }
-        return allcharacters
+        return
     }
 
     /**
      * Recibe un snapshot y un array con todos los personajes para devolver un arraylist de strings
      * con todas las direcciones de los avatares
      */
-    private fun questAvatarCharacters(snapshot: DataSnapshot, allCharacters: ArrayList<String>): ArrayList<String> {
-        val avatarCharacters:ArrayList<String> = arrayListOf()
-        val snapshotaux:DataSnapshot = snapshot.child("Image").child("characters")
+    private fun queryIconCharacters(snapshot: DataSnapshot) {
         for (num in 0 until allCharacters.count()) {
-            avatarCharacters.add(
-                snapshotaux.child(allCharacters[num])
+            iconsCharacters.add(
+                snapshot.child(allCharacters[num])
                     .child("icon").value.toString())
         }
-        return avatarCharacters
     }
 
     /**
      * Recibe un snapshot y un array con todos los personajes para devolver un arraylist de strings
      * con todos los nombres de los personajes
      */
-    private fun queryNamesCharacters(snapshot: DataSnapshot, allCharacters: ArrayList<String>): ArrayList<String> {
-        val namesCharacters:ArrayList<String> = arrayListOf()
-        val snapshotaux:DataSnapshot = snapshot.child("Data").child(idioma).child("characters")
+    private fun queryNamesCharacters(snapshot: DataSnapshot) {
         for (num in 0 until allCharacters.count()) {
             namesCharacters.add(
-                snapshotaux.child(allCharacters[num])
+                snapshot.child(allCharacters[num])
                     .child("name").value.toString())
+
         }
-        return namesCharacters
+        return
     }
 
 
