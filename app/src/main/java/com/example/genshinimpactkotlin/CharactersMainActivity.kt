@@ -1,14 +1,19 @@
 package com.example.genshinimpactkotlin
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import res.layout.*
 
 class CharactersMainActivity : AppCompatActivity() {
 
@@ -21,13 +26,14 @@ class CharactersMainActivity : AppCompatActivity() {
     val elementCharacters:ArrayList<String> = arrayListOf() // TODO // HACER ARRAY ELEMENTOS Y TIPOARMA O ADAPTAR
     var language = "Spanish"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val mToolbar = findViewById<Toolbar>(R.id.topAppBar)
         setSupportActionBar(mToolbar)
-//        idioma = String TODO // METER FUNCIONALIDAD PARA CAMBIAR IDIOMA
 
+//        language = String TODO // METER FUNCIONALIDAD PARA CAMBIAR IDIOMA
         startQuerys(
             mDatabase.getReference("Data/$language/characters"),
             mDatabase.getReference("Image/characters")
@@ -45,6 +51,7 @@ class CharactersMainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 queryCharacters(snapshot)
                 queryNamesCharacters(snapshot)
+                val currentProgress = 500
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -69,7 +76,10 @@ class CharactersMainActivity : AppCompatActivity() {
                 CharacterImageNameList(allCharacters[num], namesCharacters[num], avatarCharacters[num])
             )
         }
+        val currentProgress = 1000
+
         initRecycler()
+
     }
 
     @SuppressLint("CutPasteId")
