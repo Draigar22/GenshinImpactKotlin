@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso
 class CharacterAdapter(val characters:List<CharacterImageNameList>):
     RecyclerView.Adapter<CharacterAdapter.CharacterHolder>() {
 
+
     private lateinit var mListener : onItemClickListener
 
     interface onItemClickListener {

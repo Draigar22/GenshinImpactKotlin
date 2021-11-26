@@ -3,4 +3,9 @@
     <string name="title_activity_compose">Compose</string>
     <string name="Buscar">Buscar</string>
     <string name="avatar">Avatar</string>
+    <string name="personajes">Personajes</string>
+    <string name="opciones">Opciones</string>
+    <string name="principal">Principal</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
