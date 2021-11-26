@@ -1,43 +1,37 @@
 package com.example.genshinimpactkotlin
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.database.*
 
-class MainActivity : AppCompatActivity() {
+class CharactersMainActivity : AppCompatActivity() {
+
     val mDatabase:FirebaseDatabase = FirebaseDatabase.getInstance()
-    val dbSource:TaskCompletionSource<DataSnapshot> = TaskCompletionSource()
-    val task = dbSource.task
+
     val characters:ArrayList<CharacterImageNameList> = arrayListOf()
     val allCharacters:ArrayList<String> = arrayListOf()
     val namesCharacters:ArrayList<String> = arrayListOf()
-    val iconsCharacters:ArrayList<String> = arrayListOf()
-    var idioma = "Spanish"
+    val avatarCharacters:ArrayList<String> = arrayListOf()
+    val elementCharacters:ArrayList<String> = arrayListOf() // TODO // HACER ARRAY ELEMENTOS Y TIPOARMA O ADAPTAR
+    var language = "Spanish"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val mToolbar = findViewById<Toolbar>(R.id.topAppBar)
         setSupportActionBar(mToolbar)
-//        idioma = String
+//        idioma = String TODO // METER FUNCIONALIDAD PARA CAMBIAR IDIOMA
 
         startQuerys(
-            mDatabase.getReference("Data/$idioma/characters"),
+            mDatabase.getReference("Data/$language/characters"),
             mDatabase.getReference("Image/characters")
         )
-
-
-
-
     }
 
     /**
@@ -49,7 +43,6 @@ class MainActivity : AppCompatActivity() {
     private fun startQuerys(refCharacters:DatabaseReference, refImagesCharacters:DatabaseReference) {
         refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                dbSource.setResult(snapshot)
                 queryCharacters(snapshot)
                 queryNamesCharacters(snapshot)
             }
@@ -60,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         refImagesCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                queryIconCharacters(snapshot)
+                queryAvatarCharacters(snapshot)
                 fillCharacters()
             }
 
@@ -73,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     private fun fillCharacters() {
         for (num in 0 until allCharacters.count()) {
             characters.add(
-                CharacterImageNameList(namesCharacters[num], iconsCharacters[num])
+                CharacterImageNameList(allCharacters[num], namesCharacters[num], avatarCharacters[num])
             )
         }
         initRecycler()
@@ -81,11 +74,18 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("CutPasteId")
     fun initRecycler() {
-
-        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = GridLayoutManager(applicationContext,5, LinearLayoutManager.VERTICAL, false)
+        val mRecyclerView:RecyclerView = findViewById(R.id.rvCharacters)
 //        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = LinearLayoutManager(this)
         val adapter = CharacterAdapter(characters.toMutableList())
-        findViewById<RecyclerView>(R.id.rvCharacters).adapter = adapter
+        mRecyclerView.adapter = adapter
+        mRecyclerView.layoutManager = GridLayoutManager(applicationContext,3)
+        adapter.setOnItemClickListener(object : CharacterAdapter.onItemClickListener{
+            override fun onItemClick(defaultName: String) {
+                val intentIndividualCharacterActivity = Intent(this@CharactersMainActivity, IndividualCharacterActivity::class.java
+                ).putExtra("defaultName", defaultName).putExtra("language", language)
+                startActivity(intentIndividualCharacterActivity)
+            }
+        })
     }
 
 
@@ -110,9 +110,9 @@ class MainActivity : AppCompatActivity() {
      * Recibe un snapshot y un array con todos los personajes para devolver un arraylist de strings
      * con todas las direcciones de los avatares
      */
-    private fun queryIconCharacters(snapshot: DataSnapshot) {
+    private fun queryAvatarCharacters(snapshot: DataSnapshot) {
         for (num in 0 until allCharacters.count()) {
-            iconsCharacters.add(
+            avatarCharacters.add(
                 snapshot.child(allCharacters[num])
                     .child("icon").value.toString())
         }

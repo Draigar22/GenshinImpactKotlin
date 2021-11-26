@@ -9,13 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GenshinImpactKotlin">
+
         <activity
-            android:name=".Compose"
-            android:exported="false"
-            android:label="@string/title_activity_compose"
-            android:theme="@style/Theme.GenshinImpactKotlin.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".CharactersMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +20,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Prueba"
-            android:exported="true"></activity>
+            android:name=".IndividualCharacterActivity"
+            android:exported="true"/>
     </application>
+
 
 </manifest>
