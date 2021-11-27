@@ -9,15 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.genshinimpactkotlin.CharacterAdapter
+import com.example.genshinimpactkotlin.adapters.CharacterAdapter
 import com.example.genshinimpactkotlin.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.google.firebase.database.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -28,32 +24,12 @@ class CharactersFragment : Fragment() {
     var rvCharacters:RecyclerView? = null
     val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     val characters: ArrayList<CharacterImageNameList> = arrayListOf()
-    var adapter = CharacterAdapter(characters.toMutableList())
     val allCharacters: ArrayList<String> = arrayListOf()
     val namesCharacters: ArrayList<String> = arrayListOf()
     val avatarCharacters: ArrayList<String> = arrayListOf()
     val elementCharacters: ArrayList<String> =
         arrayListOf() // TODO // HACER ARRAY ELEMENTOS Y TIPOARMA O ADAPTAR
-    var language = "Spanish"
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        language = String TODO // METER FUNCIONALIDAD PARA CAMBIAR IDIOMA
-
-        startQuerys(
-            mDatabase.getReference("Data/$language/characters"),
-            mDatabase.getReference("Image/characters")
-        )
-    }
-
-    override fun onStop() {
-        super.onStop()
-        rvCharacters == null
-        allCharacters.clear()
-        avatarCharacters.clear()
-        namesCharacters.clear()
-
-    }
+    var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +38,10 @@ class CharactersFragment : Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
         rvCharacters = view.findViewById(R.id.rvCharacters)
+        startQuerys(
+            mDatabase.getReference("Data/$language/characters"),
+            mDatabase.getReference("Image/characters")
+        )
         return view
     }
 
@@ -75,19 +55,16 @@ class CharactersFragment : Fragment() {
                 )
             )
         }
-
         initRecycler()
-
     }
 
 
 
     @SuppressLint("CutPasteId")
     fun initRecycler() {
-//        findViewById<RecyclerView>(R.id.rvCharacters).layoutManager = LinearLayoutManager(this)
-        adapter = CharacterAdapter(characters.toMutableList())
+        val adapter = CharacterAdapter(characters)
         rvCharacters?.adapter = adapter
-        rvCharacters?.layoutManager = GridLayoutManager(rvCharacters?.context, 3)
+        rvCharacters?.layoutManager = GridLayoutManager(getContext(), 3)
         adapter.setOnItemClickListener(object : CharacterAdapter.onItemClickListener {
             override fun onItemClick(defaultName: String) {
                 Toast.makeText(rvCharacters?.context, "Notificación corta", Toast.LENGTH_SHORT).show()
@@ -154,6 +131,7 @@ class CharactersFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // TODO HACER ONCANCELLED
             }
         })
 
@@ -164,6 +142,7 @@ class CharactersFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // TODO HACER ONCANCELLED
             }
         })
     }

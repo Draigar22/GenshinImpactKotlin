@@ -1,4 +1,4 @@
-package com.example.genshinimpactkotlin
+package com.example.genshinimpactkotlin.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.genshinimpactkotlin.CharacterImageNameList
+import com.example.genshinimpactkotlin.R
 import com.squareup.picasso.Picasso
+import java.util.ArrayList
 
 
+class CharacterAdapter(
+    val characters: ArrayList<CharacterImageNameList>
+):
 
-class CharacterAdapter(val characters:List<CharacterImageNameList>):
     RecyclerView.Adapter<CharacterAdapter.CharacterHolder>() {
 
 
@@ -29,8 +34,8 @@ class CharacterAdapter(val characters:List<CharacterImageNameList>):
             val layoutInflater = LayoutInflater.from(parent.context)
             return CharacterHolder(
                 layoutInflater.inflate(R.layout.item_character, parent, false),
-                mListener
-            )
+                mListener)
+
 
     }
 
@@ -45,6 +50,7 @@ class CharacterAdapter(val characters:List<CharacterImageNameList>):
         var defaultName: String = ""
 
         fun render(characterImageNameList: CharacterImageNameList) {
+
             view.findViewById<TextView>(R.id.tvCharacterName)
                 .text = characterImageNameList.languageName
             Picasso.get().load(characterImageNameList.icon)
