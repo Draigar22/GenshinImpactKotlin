@@ -1,8 +1,9 @@
-package com.example.genshinimpactkotlin
+package com.example.genshinimpactkotlin.clases
 
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.genshinimpactkotlin.R
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 

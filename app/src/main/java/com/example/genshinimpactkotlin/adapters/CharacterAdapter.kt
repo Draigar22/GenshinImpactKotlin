@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.genshinimpactkotlin.CharacterImageNameList
+import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
+
 
 
 class CharacterAdapter(
@@ -53,7 +54,7 @@ class CharacterAdapter(
 
             view.findViewById<TextView>(R.id.tvCharacterName)
                 .text = characterImageNameList.languageName
-            Picasso.get().load(characterImageNameList.icon)
+            Picasso.get().load(characterImageNameList.icon).resize(1000, 1000)
                 .into(view.findViewById<ImageView>(R.id.ivIconCharacter))
             defaultName = characterImageNameList.defaultName
         }

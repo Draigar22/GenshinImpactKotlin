@@ -11,7 +11,7 @@
         android:theme="@style/Theme.GenshinImpactKotlin">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".clases.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IndividualCharacterActivity"
+            android:name=".clases.IndividualCharacterActivity"
             android:exported="true"/>
     </application>
 

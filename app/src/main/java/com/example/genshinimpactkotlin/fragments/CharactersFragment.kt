@@ -1,32 +1,26 @@
 package com.example.genshinimpactkotlin.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.genshinimpactkotlin.adapters.CharacterAdapter
-import com.example.genshinimpactkotlin.CharacterImageNameList
+import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.google.firebase.database.*
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CharactersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CharactersFragment : Fragment() {
-    var rvCharacters:RecyclerView? = null
     val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     val characters: ArrayList<CharacterImageNameList> = arrayListOf()
     val allCharacters: ArrayList<String> = arrayListOf()
     val namesCharacters: ArrayList<String> = arrayListOf()
     val avatarCharacters: ArrayList<String> = arrayListOf()
+    var rvCharacters: RecyclerView? = null
     val elementCharacters: ArrayList<String> =
         arrayListOf() // TODO // HACER ARRAY ELEMENTOS Y TIPOARMA O ADAPTAR
     var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
@@ -45,6 +39,7 @@ class CharactersFragment : Fragment() {
         return view
     }
 
+
     private fun fillCharacters() {
         for (num in 0 until allCharacters.count()) {
             characters.add(
@@ -56,20 +51,19 @@ class CharactersFragment : Fragment() {
             )
         }
         initRecycler()
+
     }
 
-
-
-    @SuppressLint("CutPasteId")
-    fun initRecycler() {
+    private fun initRecycler() {
         val adapter = CharacterAdapter(characters)
-        rvCharacters?.adapter = adapter
-        rvCharacters?.layoutManager = GridLayoutManager(getContext(), 3)
         adapter.setOnItemClickListener(object : CharacterAdapter.onItemClickListener {
             override fun onItemClick(defaultName: String) {
-                Toast.makeText(rvCharacters?.context, "Notificación corta", Toast.LENGTH_SHORT).show()
+                Toast.makeText(rvCharacters?.context, defaultName, Toast.LENGTH_SHORT).show()
             }
         })
+        rvCharacters?.adapter = adapter
+        val columns = (((resources.displayMetrics.widthPixels  ))/200)-1;
+        rvCharacters?.layoutManager = GridLayoutManager(context, columns)
     }
 
     /**
@@ -80,7 +74,6 @@ class CharactersFragment : Fragment() {
         snapshot.children.forEach {
             allCharacters.add(it.key.toString())
         }
-        return
     }
 
 
@@ -110,7 +103,7 @@ class CharactersFragment : Fragment() {
             )
 
         }
-        return
+
     }
 
     /**
@@ -145,5 +138,6 @@ class CharactersFragment : Fragment() {
                 // TODO HACER ONCANCELLED
             }
         })
+
     }
 }

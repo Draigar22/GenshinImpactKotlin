@@ -1,4 +1,4 @@
-package com.example.genshinimpactkotlin
+package com.example.genshinimpactkotlin.clases
 
 
 import android.os.Bundle
@@ -6,13 +6,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.databinding.ActivityMainBinding
 import com.example.genshinimpactkotlin.fragments.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var charactersFragment = CharactersFragment()
-    private var dashboardFragment = DashboardFragment()
     private var actualId = -10
 
 
@@ -22,14 +21,10 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.bottomNavigation.selectedItemId = R.id.ic_dashboard
-        replaceFragment(DashboardFragment())
-        val view: View = findViewById(R.id.ic_dashboard)
-        actualId = view.id
-
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.ic_characters ->  {
+                R.id.ic_characters -> {
                     if (actualId != R.id.ic_characters) {
                         actualId = R.id.ic_characters
                         replaceFragment(CharactersFragment())
@@ -41,6 +36,12 @@ class MainActivity : AppCompatActivity() {
                         replaceFragment(DashboardFragment())
                     }
                 }
+                R.id.ic_settings -> {
+                    if (actualId != R.id.ic_settings) {
+                        actualId = R.id.ic_settings
+                        replaceFragment(ListaPersonajesFragment())
+                    }
+                }
             }
             true
         }
@@ -48,11 +49,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
-            transaction.commit()
-
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+//        transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
+//        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 
