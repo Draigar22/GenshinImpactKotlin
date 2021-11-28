@@ -12,8 +12,8 @@ import com.example.genshinimpactkotlin.fragments.*
 
 class MainActivity : AppCompatActivity() {
 
+    // TODO EN PORTRAIT (giro pantalla) DE CHARACTERS HABRÏA QUE QUITAR 1 PERONAJE PARA QUE QUERE MEJOR
     private var actualId = -10
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_settings -> {
                     if (actualId != R.id.ic_settings) {
                         actualId = R.id.ic_settings
-                        replaceFragment(ListaPersonajesFragment())
+                        replaceFragment(DashboardFragment())
                     }
                 }
             }

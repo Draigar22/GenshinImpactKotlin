@@ -8,5 +8,13 @@
     <string name="principal">Principal</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prueba">Prueba</string>
+    <string name="atributo">Atributo</string>
+    <string name="arma">Arma</string>
+    <string name="elemento">Elemento</string>
+    <string name="ataque_cargado">Ataque cargado</string>
+    <string name="ataque_descendente">Ataque descendente</string>
+    <string name="ataque_normal">Ataque normal</string>
+    <string name="region">Región</string>
 
 </resources>

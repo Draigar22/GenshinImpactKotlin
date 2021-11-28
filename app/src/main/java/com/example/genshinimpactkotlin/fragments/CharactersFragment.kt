@@ -1,17 +1,18 @@
 package com.example.genshinimpactkotlin.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.genshinimpactkotlin.adapters.CharacterAdapter
 import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
+import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
 import com.google.firebase.database.*
 
 class CharactersFragment : Fragment() {
@@ -58,7 +59,11 @@ class CharactersFragment : Fragment() {
         val adapter = CharacterAdapter(characters)
         adapter.setOnItemClickListener(object : CharacterAdapter.onItemClickListener {
             override fun onItemClick(defaultName: String) {
-                Toast.makeText(rvCharacters?.context, defaultName, Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(context, IndividualCharacterActivity::class.java).apply {
+                    putExtra("defaultName", defaultName).putExtra("language", language)
+                }
+                startActivity(intent)
             }
         })
         rvCharacters?.adapter = adapter

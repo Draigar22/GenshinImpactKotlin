@@ -54,7 +54,7 @@ class CharacterAdapter(
 
             view.findViewById<TextView>(R.id.tvCharacterName)
                 .text = characterImageNameList.languageName
-            Picasso.get().load(characterImageNameList.icon).resize(1000, 1000)
+            Picasso.get().load(characterImageNameList.icon)
                 .into(view.findViewById<ImageView>(R.id.ivIconCharacter))
             defaultName = characterImageNameList.defaultName
         }
