@@ -11,8 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
+
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import com.example.genshinimpactkotlin.dto.Character
 
 class IndividualCharacterFragmentStat : Fragment() {
     var defaultName: String = "defaultName"
@@ -48,11 +50,15 @@ class IndividualCharacterFragmentStat : Fragment() {
      * con los nombres (estos serán como claves ya que tienen el mismo nombre en otras rutas)
      */
     private fun queryCharacter(snapshot: DataSnapshot, view: View) {
+
         view.findViewById<TextView>(R.id.ind_tvCharacterName).text = snapshot.child("name").value.toString()
         view.findViewById<TextView>(R.id.ind_tvCharacterRegion).text = snapshot.child("region").value.toString()
         view.findViewById<TextView>(R.id.ind_tvCharacterWeaponType).text = snapshot.child("weapontype").value.toString()
         view.findViewById<TextView>(R.id.ind_tvCharacterSubStat).text = snapshot.child("substat").value.toString()
         view.findViewById<TextView>(R.id.ind_tvCharacterElement).text = snapshot.child("element").value.toString()
+        var post = snapshot.getValue(Character::class.java)
+
+        println(post?.costs?.ascend4?.get(1)?.name)
     }
 
 
@@ -78,6 +84,7 @@ class IndividualCharacterFragmentStat : Fragment() {
         refImagesCharacters: DatabaseReference,
         view: View
     ) {
+
 
         refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

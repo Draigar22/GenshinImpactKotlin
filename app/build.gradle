@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 
 }
 apply plugin: 'com.google.gms.google-services'
@@ -8,6 +9,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdk 31
+
 
     defaultConfig {
         applicationId "com.example.genshinimpactkotlin"

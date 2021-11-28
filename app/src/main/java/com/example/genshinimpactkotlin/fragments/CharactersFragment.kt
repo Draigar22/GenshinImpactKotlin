@@ -13,6 +13,7 @@ import com.example.genshinimpactkotlin.adapters.CharacterAdapter
 import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
+import com.example.genshinimpactkotlin.dto.Character
 import com.google.firebase.database.*
 
 class CharactersFragment : Fragment() {
@@ -37,6 +38,8 @@ class CharactersFragment : Fragment() {
             mDatabase.getReference("Data/$language/characters"),
             mDatabase.getReference("Image/characters")
         )
+        val characterList = arguments?.getParcelableArrayList<Character>("characterList")
+        println(characterList?.get(0)?.defaultName + "AAAAAAAAAAAAAAAAA")
         return view
     }
 
