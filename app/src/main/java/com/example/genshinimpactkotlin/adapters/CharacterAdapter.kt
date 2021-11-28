@@ -23,7 +23,7 @@ class CharacterAdapter(
     private lateinit var mListener : onItemClickListener
 
     interface onItemClickListener {
-        fun onItemClick(defaultName: String) {
+        fun onItemClick(defaultName: String, position: Int) {
 
         }
     }
@@ -40,28 +40,28 @@ class CharacterAdapter(
 
     }
 
-        override fun getItemCount(): Int = characters.size
+    override fun getItemCount(): Int = characters.size
 
     override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
-        holder.render(characters[position])
+        holder.render(characters[position], position)
 
     }
 
     class CharacterHolder(var view: View, listener: onItemClickListener):RecyclerView.ViewHolder(view) {
-        var defaultName: String = ""
-
-        fun render(characterImageNameList: CharacterImageNameList) {
-
+        var defaultName: String? = null
+        var position: Int? = null
+        fun render(characterImageNameList: CharacterImageNameList, position: Int) {
+            this.position = position
             view.findViewById<TextView>(R.id.tvCharacterName)
                 .text = characterImageNameList.languageName
             Picasso.get().load(characterImageNameList.icon)
                 .into(view.findViewById<ImageView>(R.id.ivIconCharacter))
-            defaultName = characterImageNameList.defaultName
+            defaultName = characterImageNameList.defaultName.toString()
         }
 
         init {
             itemView.setOnClickListener{
-                listener.onItemClick(defaultName)
+                listener.onItemClick(defaultName!!, position!!)
             }
         }
     }

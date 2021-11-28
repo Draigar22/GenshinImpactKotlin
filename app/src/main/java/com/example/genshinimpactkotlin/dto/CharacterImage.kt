@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @IgnoreExtraProperties
-data class ImageCharacter(
+data class CharacterImage(
     val card: String? = null,
     val cover1: String? = null,
     val cover2: String? = null,

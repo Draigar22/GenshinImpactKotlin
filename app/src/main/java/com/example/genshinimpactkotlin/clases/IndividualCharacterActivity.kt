@@ -21,8 +21,6 @@ class IndividualCharacterActivity : AppCompatActivity() {
         fragment.arguments = intent.extras
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.ind_containerFragment, fragment)
-//        transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
-//        transaction.addToBackStack(null)
         transaction.commit()
     }
 

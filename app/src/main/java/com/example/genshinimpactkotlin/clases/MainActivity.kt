@@ -13,11 +13,13 @@ import com.example.genshinimpactkotlin.dto.*
 class MainActivity : AppCompatActivity() {
 
     // TODO EN PORTRAIT (giro pantalla) DE CHARACTERS HABRÏA QUE QUITAR 1 PERONAJE PARA QUE QUERE MEJOR
-    private var actualId = -10
+    // TODO ANIMACIONES BOTONES
+
     private val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private var language: String = "Spanish"
     private val characterList: ArrayList<Character> = arrayListOf()
-    private val imageList: ArrayList<ImageCharacter> = arrayListOf()
+    private val characterListImage: ArrayList<CharacterImage> = arrayListOf()
+    private val elementListImage: ArrayList<ElementImage> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,36 +30,28 @@ class MainActivity : AppCompatActivity() {
 
         startQuerys(
             mDatabase.getReference("Data/$language/characters"),
-            mDatabase.getReference("Image/characters")
+            mDatabase.getReference("Image"),
         )
 
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_characters -> {
-                    if (actualId != R.id.ic_characters) {
-                        actualId = R.id.ic_characters
                         val fragment = CharactersFragment()
                         val bundle = Bundle().apply {
                             putParcelableArrayList("characterList", characterList)
-                            putParcelableArrayList("imageList", imageList)
+                            putParcelableArrayList("characterImageList", characterListImage)
+                            putParcelableArrayList("elementImageList", elementListImage)
                         }
                         fragment.arguments = bundle
                         replaceFragment(fragment)
-                    }
                 }
                 R.id.ic_dashboard -> {
-                    if (actualId != R.id.ic_dashboard) {
-                        actualId = R.id.ic_dashboard
+                    replaceFragment(DashboardFragment())
 
-                        replaceFragment(DashboardFragment())
-                    }
                 }
                 R.id.ic_settings -> {
-                    if (actualId != R.id.ic_settings) {
-                        actualId = R.id.ic_settings
                         replaceFragment(BlankFragment())
-                    }
                 }
             }
             true
@@ -86,8 +80,14 @@ class MainActivity : AppCompatActivity() {
             // Consulta a refImage
         refImage.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.forEach {
-                    imageList.add(it.getValue(ImageCharacter::class.java)!!)
+                snapshot.child("elements").children.forEachIndexed { i, data ->
+                    run{
+                        elementListImage.add(data.getValue(ElementImage::class.java)!!)
+                        elementListImage[i].name = data.key.toString()
+                    }
+                }
+                snapshot.child("characters").children.forEach {
+                    characterListImage.add(it.getValue(CharacterImage::class.java)!!)
                 }
             }
 
