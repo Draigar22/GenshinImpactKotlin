@@ -16,5 +16,6 @@
     <string name="ataque_descendente">Ataque descendente</string>
     <string name="ataque_normal">Ataque normal</string>
     <string name="region">Región</string>
+    <string name="talentos">Talentos</string>
 
 </resources>

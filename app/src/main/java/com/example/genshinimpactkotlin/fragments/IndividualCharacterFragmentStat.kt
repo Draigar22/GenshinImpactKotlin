@@ -17,20 +17,20 @@ import com.example.genshinimpactkotlin.dto.ElementImage
 class IndividualCharacterFragmentStat : Fragment() {
     var character: Character = Character()
     var characterImage: CharacterImage = CharacterImage()
-    var elementListImage: ArrayList<ElementImage> = arrayListOf()
-    var ele:String = "hola"
+    var elementListImage: HashMap <String,ElementImage> = hashMapOf()
+
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view:View = inflater.inflate(R.layout.fragment_character_individual_stat, container, false);
+        val view:View = inflater.inflate(R.layout.fragment_character_individual_info, container, false);
         character = arguments?.get("character") as Character
         characterImage = arguments?.get("characterImage") as CharacterImage
-        elementListImage = arguments?.getParcelableArrayList<ElementImage>("elementImageList") as ArrayList<ElementImage>
+        elementListImage = arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>
 
         fillCharacter(view)
-        ele = character.element.toString()
         return view
     }
 
@@ -42,18 +42,21 @@ class IndividualCharacterFragmentStat : Fragment() {
         view.findViewById<TextView>(R.id.ind_tvCharacterElement).text = character.element
         Picasso.get().load(searchElement()).into(view.findViewById<ImageView>(R.id.ind_ivElement))
         if (!characterImage.cover2.isNullOrBlank())
-            Picasso.get().load(characterImage.cover2).into(view.findViewById<ImageView>(R.id.ind_ivCharacterImage))
+            Picasso.get().load(
+                characterImage.cover2).into(view.findViewById<ImageView>(R.id.ind_ivCharacterImage))
         else
-            Picasso.get().load(characterImage.portrait).into(view.findViewById<ImageView>(R.id.ind_ivCharacterImage))
+            Picasso.get().load(
+                characterImage.portrait).into(view.findViewById<ImageView>(R.id.ind_ivCharacterImage))
     }
 
     private fun searchElement(): String? {
-        elementListImage.forEachIndexed { i, elementList ->
-            if (elementList.name?.lowercase() == character.element?.lowercase()) {
-                return elementListImage[i].wikia
+
+        elementListImage.keys.forEach {
+            if (it == character.element?.lowercase()) {
+                return elementListImage[it]?.wikia
             }
         }
-        return "papa"
+        return elementListImage.getValue("cryo").wikia
     }
 
 }

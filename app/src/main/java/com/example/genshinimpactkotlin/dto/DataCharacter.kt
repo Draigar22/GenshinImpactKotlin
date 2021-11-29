@@ -3,11 +3,12 @@ package com.example.genshinimpactkotlin.dto
 import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.*
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Character(
-    var defaultName: String? = null,
     var affiliation: String? = null,
     var association: String? = null,
     var birthday: String? = null,
@@ -27,6 +28,7 @@ data class Character(
     var weapontype: String? = null,
 ) : Parcelable
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Costs(
@@ -36,8 +38,9 @@ data class Costs(
     var ascend4: List<Ascend4>? = null,
     var ascend5: List<Ascend5>? = null,
     var ascend6: List<Ascend6>? = null
-) : Parcelable
+) : Parcelable 
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Cv(
@@ -45,29 +48,33 @@ data class Cv(
     var english: String? = null,
     var japanese: String? = null,
     var korean: String? = null
-) : Parcelable
+) : Parcelable 
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Ascend1(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable
+) : Parcelable 
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Ascend2(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable
+) : Parcelable 
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Ascend3(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable
+) : Parcelable 
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Ascend4(
@@ -75,16 +82,18 @@ data class Ascend4(
     var name: String? = null
 ) : Parcelable
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Ascend5(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable
+) : Parcelable 
 
+@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Ascend6(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable
+) : Parcelable 

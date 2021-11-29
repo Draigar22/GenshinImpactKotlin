@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.util.ArrayList
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,17 +16,20 @@ import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
 import com.example.genshinimpactkotlin.dto.Character
 import com.example.genshinimpactkotlin.dto.CharacterImage
 import com.example.genshinimpactkotlin.dto.ElementImage
+import java.util.*
+import kotlin.collections.HashMap
 
 class CharactersFragment : Fragment() {
     val characters: ArrayList<CharacterImageNameList> = arrayListOf()
     var rvCharacters: RecyclerView? = null
-    var characterList: ArrayList<Character> = arrayListOf()
-    var characterImageList: ArrayList<CharacterImage> = arrayListOf()
-    var elementImageList: ArrayList<ElementImage> = arrayListOf()
+    var characterList: HashMap<String, Character> = hashMapOf()
+    var characterImageList: HashMap<String, CharacterImage> = hashMapOf()
+    var elementImageList: HashMap<String, ElementImage> = hashMapOf()
     val elementCharacters: ArrayList<String> =
         arrayListOf() // TODO // HACER ARRAY ELEMENTOS Y TIPOARMA O ADAPTAR
     var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,28 +37,30 @@ class CharactersFragment : Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
         rvCharacters = view.findViewById(R.id.rvCharacters)
-        characterList = arguments?.getParcelableArrayList("characterList")!!
-        characterImageList = arguments?.getParcelableArrayList("characterImageList")!!
-        elementImageList = arguments?.getParcelableArrayList("elementImageList")!!
+        characterList = (arguments?.getSerializable("characterList") as HashMap<String, Character>?)!!
+        characterImageList = (arguments?.getSerializable("characterImageList") as HashMap<String, CharacterImage>?)!!
+        elementImageList = (arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>)
+        val characterListSorted: MutableMap<String, Character> = TreeMap(characterList)
 
-        fillCharacters()
+
+        fillCharacters(characterListSorted)
         return view
     }
 
 
-    private fun fillCharacters() {
-        for (num in 0 until characterList.size) {
-                characters.add(
-                    CharacterImageNameList(
-                        characterList[num].defaultName,
-                        characterList[num].name,
-                        characterList[num].element,
-                        characterList[num].weapontype,
-                        characterList[num].region,
-                        characterImageList[num].icon
-                    )
+    private fun fillCharacters(characterListSorted: MutableMap<String, Character>) {
+        characterListSorted.keys.forEach {
+            characters.add(
+                CharacterImageNameList(
+                    it,
+                    characterList[it]?.name,
+                    characterList[it]?.element,
+                    characterList[it]?.weapontype,
+                    characterList[it]?.region,
+                    characterImageList[it]?.icon
                 )
-            }
+            )
+        }
         initRecycler()
 
     }
@@ -67,8 +71,8 @@ class CharactersFragment : Fragment() {
             override fun onItemClick(defaultName: String, position: Int) {
 
                 val intent = Intent(context, IndividualCharacterActivity::class.java).apply {
-                    putExtra("character", characterList[position])
-                    putExtra("characterImage", characterImageList[position])
+                    putExtra("character", characterList.getValue(defaultName))
+                    putExtra("characterImage", characterImageList.getValue(defaultName))
                     putExtra("elementImageList", elementImageList)
                 }
                 startActivity(intent)
