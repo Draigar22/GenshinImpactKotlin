@@ -17,5 +17,6 @@
     <string name="ataque_normal">Ataque normal</string>
     <string name="region">Región</string>
     <string name="talentos">Talentos</string>
+    <string name="description">Descripción</string>
 
 </resources>

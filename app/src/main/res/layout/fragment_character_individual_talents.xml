@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,7 +14,7 @@
         android:textSize="40sp"
         android:textStyle="bold" />
     <androidx.cardview.widget.CardView
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/cardViewChar_ind_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"
@@ -27,17 +26,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/ind_talentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/prueba"
-                tools:layout_editor_absoluteX="128dp"
-                tools:layout_editor_absoluteY="111dp"
-                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

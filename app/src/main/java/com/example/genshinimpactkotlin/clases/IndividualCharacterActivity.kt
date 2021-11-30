@@ -2,9 +2,9 @@ package com.example.genshinimpactkotlin.clases
 
 
 import android.os.Bundle
-import android.view.SurfaceControl
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.fragments.IndividualCharacterFragmentStat
@@ -18,6 +18,8 @@ class IndividualCharacterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_individual_character)
+        val actionBar = actionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         val fragment = IndividualCharacterFragmentStat()
         if (fragment.arguments == null)
             fragment.arguments = intent.extras

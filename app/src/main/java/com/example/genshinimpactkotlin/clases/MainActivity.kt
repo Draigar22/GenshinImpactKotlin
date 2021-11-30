@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var bn:BottomNavigationView = findViewById(R.id.bottom_navigation)
+        val bn:BottomNavigationView = findViewById(R.id.bottom_navigation)
         bn.selectedItemId = R.id.ic_dashboard
         actualId = R.id.ic_dashboard
         startQuerys(
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                         bundle.putSerializable("characterList", characterList)
                         bundle.putSerializable("characterImageList", characterListImage)
                         bundle.putSerializable("elementImageList", elementListImage)
+                        bundle.putString("language", language)
 
                         fragment.arguments = bundle
                         replaceFragment(fragment)
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.ic_settings -> {
-                        replaceFragment(BlankFragment())
+                        replaceFragment(DashboardFragment())
                 }
             }
             true
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
-                    characterList.put(it.key.toString(), it.getValue(Character::class.java)!!)
+                    characterList[it.key.toString()] = it.getValue(Character::class.java)!!
                 }
             }
 
@@ -97,10 +98,10 @@ class MainActivity : AppCompatActivity() {
         refImage.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.child("elements").children.forEach {
-                    elementListImage.put(it.key.toString(), it.getValue(ElementImage::class.java)!!)
+                    elementListImage[it.key.toString()] = it.getValue(ElementImage::class.java)!!
                 }
                 snapshot.child("characters").children.forEach {
-                    characterListImage.put(it.key.toString(), it.getValue(CharacterImage::class.java)!!)
+                    characterListImage[it.key.toString()] = it.getValue(CharacterImage::class.java)!!
                 }
             }
 

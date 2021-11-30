@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable-v24/avatar_borde.xml" value="0.2558974358974359" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable-v24/ic_menu_24.xml" value="0.21875" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable-v24/ic_search_24.xml" value="0.11574074074074074" />
@@ -10,19 +11,24 @@
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2630208333333333" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable/ic_menu_black_24dp.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/drawable/ic_nav_search_black_24dp.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout-v26/fragment_character_individual_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/activity_individual_character.xml" value="0.25" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/activity_prueba.xml" value="0.22" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_info.xml" value="0.25" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_stat.xml" value="0.24427083333333333" />
-        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/item_character.xml" value="0.22" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_talents.xml" value="0.25625" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/fragment_characters.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/item_character.xml" value="0.67" />
+        <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/item_talent.xml" value="0.5" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/probando.xml" value="0.23505434782608695" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/layout/switch_item.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/menu/navic_icon.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/menu/topbar.xml" value="0.33" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/xml/style.xml" value="0.246875" />
-        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_info.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_talents.xml" value="0.39166666666666666" />
       </map>
     </option>
   </component>

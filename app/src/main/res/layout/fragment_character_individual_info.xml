@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    >
 
 
     <ImageView
@@ -17,163 +18,185 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/constraintLayout2"
-        android:layout_width="356dp"
-        android:layout_height="196dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/cardViewChar_ind_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         android:layout_marginTop="304dp"
         android:foregroundGravity="center_horizontal"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardElevation="8dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:alpha="0.9">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="20dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewCaractElemento1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    
-                    
-                    android:text="@string/elemento"
-                    android:textColor="#FFC72C"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewCaractArma1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    
-                    android:text="@string/arma"
-                    android:textColor="#FFC72C"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCaractRegion1" />
-
-                <TextView
-                    android:id="@+id/textViewCaractAtributo1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    
-                    android:text="@string/atributo"
-                    android:textColor="#FFC72C"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCaractArma1" />
-
-                <TextView
-                    android:id="@+id/textViewCaractRegion1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    
-                    android:text="@string/region"
-                    android:textColor="#FFC72C"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCaractElemento1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/ind_tvCharacterElement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    
-                    
-                    android:text="@string/prueba"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.048"
-                    app:layout_constraintStart_toEndOf="@+id/textViewCaractElemento1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/ind_tvCharacterWeaponType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    
-                    android:text="@string/prueba"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.058"
-                    app:layout_constraintStart_toEndOf="@+id/textViewCaractArma1"
-                    app:layout_constraintTop_toBottomOf="@+id/ind_tvCharacterRegion" />
-
-                <TextView
-                    android:id="@+id/ind_tvCharacterSubStat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    
-                    android:text="@string/prueba"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textViewCaractAtributo1"
-                    app:layout_constraintTop_toBottomOf="@+id/ind_tvCharacterWeaponType" />
-
-                <TextView
-                    android:id="@+id/ind_tvCharacterRegion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    
-                    android:text="@string/prueba"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.058"
-                    app:layout_constraintStart_toEndOf="@+id/textViewCaractRegion1"
-                    app:layout_constraintTop_toBottomOf="@+id/ind_tvCharacterElement" />
-            </LinearLayout>
-        <LinearLayout 
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="20dp"
+                    android:layout_gravity="start">
 
-            <ImageView
-                android:id="@+id/ind_ivElement"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:alpha="1"
-                android:src="@drawable/element_hydro" />
-            </LinearLayout>
-        
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewCaractElemento1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/elemento"
+                            android:textColor="@color/primaryLightColor"
+                            style="@style/mediumTextSize" />
+
+                        <TextView
+                            android:id="@+id/textViewCaractArma1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/arma"
+                            android:textColor="@color/primaryLightColor"
+                            style="@style/mediumTextSize"
+                            />
+
+                        <TextView
+                            android:id="@+id/textViewCaractAtributo1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+
+                            android:text="@string/atributo"
+                            android:textColor="@color/primaryLightColor"
+                            style="@style/mediumTextSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewCaractArma1" />
+
+                        <TextView
+                            android:id="@+id/textViewCaractRegion1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/region"
+                            android:textColor="@color/primaryLightColor"
+                            style="@style/mediumTextSize" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="20dp">
+
+                        <TextView
+                            android:id="@+id/ind_tvCharacterElement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/prueba"
+                            style="@style/mediumTextSize"/>
+
+                        <TextView
+                            android:id="@+id/ind_tvCharacterWeaponType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/prueba"
+                            style="@style/mediumTextSize" />
+
+                        <TextView
+                            android:id="@+id/ind_tvCharacterSubStat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            style="@style/mediumTextSize"
+                            android:text="@string/prueba"
+                             />
+
+                        <TextView
+                            android:id="@+id/ind_tvCharacterRegion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/prueba"
+                            style="@style/mediumTextSize" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <ImageView
+                            android:id="@+id/ind_ivElement"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:alpha="1"
+                            android:src="@drawable/element_hydro"
+                            android:layout_gravity="end"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="18sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="18sp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/ind_tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prueba"
+                android:justificationMode="inter_word"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                style="@style/normalTextSize"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/ind_tvCharacterName"
-        android:layout_width="264dp"
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/prueba"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintStart_toStartOf="parent" />
+
+        android:layout_marginTop="132dp"
+        android:foregroundGravity="center_horizontal"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewChar_ind_info"
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0.9">
+
+        <TextView
+            android:id="@+id/ind_tvCharacterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/prueba"
+            style="@style/capitalTextSize"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

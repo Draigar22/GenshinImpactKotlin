@@ -9,25 +9,32 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class Character(
-    var affiliation: String? = null,
     var association: String? = null,
-    var birthday: String? = null,
-    var birthdaymmdd: String? = null,
-    var body: String? = null,
-    var constellation: String? = null,
-    var costs: Costs? = null,
-    var cv: Cv? = null,
     var description: String? = null,
     var element: String? = null,
-    var gender: String? = null,
     var name: String? = null,
     var rarity: String? = null,
     var region: String? = null,
     var substat: String? = null,
-    var title: String? = null,
     var weapontype: String? = null,
+
+
+
+
+    /* Variables no utilizadas
+    var birthday: String? = null,
+    var title: String? = null,
+    var gender: String? = null,
+    var body: String? = null,
+    var affiliation: String? = null,
+    var birthdaymmdd: String? = null,
+    var constellation: String? = null,
+    var cv: Cv? = null,
+    var costs: Costs? = null,
+    */
 ) : Parcelable
 
+/* Información no utilizada, no necesaria por ahora
 @Serializable
 @Parcelize
 @IgnoreExtraProperties
@@ -38,7 +45,7 @@ data class Costs(
     var ascend4: List<Ascend4>? = null,
     var ascend5: List<Ascend5>? = null,
     var ascend6: List<Ascend6>? = null
-) : Parcelable 
+) : Parcelable
 
 @Serializable
 @Parcelize
@@ -48,7 +55,7 @@ data class Cv(
     var english: String? = null,
     var japanese: String? = null,
     var korean: String? = null
-) : Parcelable 
+) : Parcelable
 
 @Serializable
 @Parcelize
@@ -56,7 +63,7 @@ data class Cv(
 data class Ascend1(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable 
+) : Parcelable
 
 @Serializable
 @Parcelize
@@ -64,7 +71,7 @@ data class Ascend1(
 data class Ascend2(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable 
+) : Parcelable
 
 @Serializable
 @Parcelize
@@ -72,7 +79,7 @@ data class Ascend2(
 data class Ascend3(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable 
+) : Parcelable
 
 @Serializable
 @Parcelize
@@ -88,7 +95,7 @@ data class Ascend4(
 data class Ascend5(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable 
+) : Parcelable
 
 @Serializable
 @Parcelize
@@ -96,4 +103,5 @@ data class Ascend5(
 data class Ascend6(
     var count: Long? = null,
     var name: String? = null
-) : Parcelable 
+) : Parcelable
+ */

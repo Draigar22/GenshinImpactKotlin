@@ -8,17 +8,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.genshinimpactkotlin.R
+import com.example.genshinimpactkotlin.dto.*
 
 import com.squareup.picasso.Picasso
-import com.example.genshinimpactkotlin.dto.Character
-import com.example.genshinimpactkotlin.dto.CharacterImage
-import com.example.genshinimpactkotlin.dto.ElementImage
 
 class IndividualCharacterFragmentStat : Fragment() {
     var character: Character = Character()
     var characterImage: CharacterImage = CharacterImage()
     var elementListImage: HashMap <String,ElementImage> = hashMapOf()
-
+    var talentsList: HashMap <String, Talents> = hashMapOf()
+    var talentsImagesList: HashMap <String, TalentsImages> = hashMapOf()
     @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +28,8 @@ class IndividualCharacterFragmentStat : Fragment() {
         character = arguments?.get("character") as Character
         characterImage = arguments?.get("characterImage") as CharacterImage
         elementListImage = arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>
+        talentsList = arguments?.getSerializable("talentsList") as HashMap<String, Talents>
+        talentsImagesList = arguments?.getSerializable("talentsImagesList") as HashMap<String, TalentsImages>
 
         fillCharacter(view)
         return view
@@ -40,6 +41,7 @@ class IndividualCharacterFragmentStat : Fragment() {
         view.findViewById<TextView>(R.id.ind_tvCharacterWeaponType).text = character.weapontype
         view.findViewById<TextView>(R.id.ind_tvCharacterSubStat).text = character.substat
         view.findViewById<TextView>(R.id.ind_tvCharacterElement).text = character.element
+        view.findViewById<TextView>(R.id.ind_tvDescription).text = character.description
         Picasso.get().load(searchElement()).into(view.findViewById<ImageView>(R.id.ind_ivElement))
         if (!characterImage.cover2.isNullOrBlank())
             Picasso.get().load(

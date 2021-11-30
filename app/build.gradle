@@ -10,7 +10,6 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 android {
     compileSdk 31
 
-
     defaultConfig {
         applicationId "com.example.genshinimpactkotlin"
         minSdk 21
