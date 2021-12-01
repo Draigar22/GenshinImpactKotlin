@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class TalentsImages(

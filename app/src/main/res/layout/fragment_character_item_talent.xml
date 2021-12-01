@@ -3,33 +3,53 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foregroundGravity="center_horizontal"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
     app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
-    android:theme="@style/Theme.GenshinImpactKotlin">
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/llItemCharacter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables">
+        tools:ignore="UseCompoundDrawables"
+        android:layout_margin="20dp">
         <!--    android:paddingHorizontal="5dp"-->
         <!--    android:paddingVertical="5dp">-->
 
         <ImageView
 
-            android:id="@+id/itemtalent_ivTalentImage"
+            android:id="@+id/talent_ivTalentImage"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:contentDescription="@string/avatar"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/avatar_borde"
+            android:layout_marginBottom="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/talent_tvTalentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            style="@style/mediumTextSize"
+            android:text="@string/prueba"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/primaryLightColor"
+            />
+
+        <TextView
+            android:id="@+id/talent_tvTalentInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/normalTextSize"
+            android:text="@string/prueba"
             />
 
 

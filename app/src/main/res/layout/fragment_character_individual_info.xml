@@ -30,17 +30,18 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:alpha="0.9">
+        android:alpha="0.9"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_margin="20dp"
                     android:layout_gravity="start">
 
                     <LinearLayout
@@ -149,10 +150,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/description"
                 android:textColor="@color/primaryLightColor"
-                android:textSize="18sp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="18sp"
-                android:layout_marginBottom="5dp"/>
+                style="@style/mediumTextSize"
+                android:layout_marginTop="20dp"
+                />
 
             <TextView
                 android:id="@+id/ind_tvDescription"
@@ -160,9 +160,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/prueba"
                 android:justificationMode="inter_word"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
                 style="@style/normalTextSize"/>
         </LinearLayout>
 
@@ -196,7 +193,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.cardview.widget.CardView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

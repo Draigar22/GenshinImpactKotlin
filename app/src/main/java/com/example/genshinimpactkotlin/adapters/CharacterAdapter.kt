@@ -34,7 +34,7 @@ class CharacterAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             return CharacterHolder(
-                layoutInflater.inflate(R.layout.item_character, parent, false),
+                layoutInflater.inflate(R.layout.recycler_character_item, parent, false),
                 mListener)
 
 

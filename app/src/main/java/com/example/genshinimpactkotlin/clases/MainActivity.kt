@@ -5,15 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.viewbinding.ViewBinding
 import com.example.genshinimpactkotlin.R
-import com.example.genshinimpactkotlin.databinding.ActivityMainBinding
 import com.example.genshinimpactkotlin.fragments.*
 import com.google.firebase.database.*
 import com.example.genshinimpactkotlin.dto.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.*
 import kotlin.collections.HashMap
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,12 +24,16 @@ class MainActivity : AppCompatActivity() {
     private val characterList: HashMap<String, Character>  = hashMapOf()
     private val characterListImage: HashMap<String, CharacterImage> = hashMapOf()
     private val elementListImage: HashMap<String, ElementImage> = hashMapOf()
+    private var firstTimePopUp: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val bn:BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bn.selectedItemId = R.id.ic_dashboard
-        actualId = R.id.ic_dashboard
+        val bn: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        if (savedInstanceState == null) {
+            replaceFragment(DashboardFragment())
+            bn.selectedItemId = R.id.ic_dashboard
+            actualId = R.id.ic_dashboard
+        }
         startQuerys(
             mDatabase.getReference("Data/$language/characters"),
             mDatabase.getReference("Image")
@@ -61,8 +63,19 @@ class MainActivity : AppCompatActivity() {
                         actualId = R.id.ic_dashboard
                     }
                 }
-                R.id.ic_settings -> {
-                        replaceFragment(DashboardFragment())
+                R.id.ic_map -> {
+
+                    if (actualId != R.id.ic_map) {
+                        val fragment = MapFragment()
+                        val bundle = Bundle()
+                        bundle.putBoolean("firstTimePopUp", firstTimePopUp)
+                        fragment.arguments = bundle
+                        replaceFragment(fragment)
+                        actualId = R.id.ic_map
+                        if (!firstTimePopUp) {
+                            firstTimePopUp = true
+                        }
+                    }
                 }
             }
             true
@@ -70,6 +83,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun replaceFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.commit()
+    }
     override fun onBackPressed() {
         val bn:BottomNavigationView = findViewById(R.id.bottom_navigation)
         if (bn.selectedItemId == R.id.ic_dashboard) {
@@ -79,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             bn.selectedItemId = R.id.ic_dashboard
         }
     }
+
     private fun startQuerys(refCharacters: DatabaseReference, refImage: DatabaseReference) {
         // Consulta a refCharacters
         refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -113,12 +133,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        transaction.commit()
-    }
-
 }
-

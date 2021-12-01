@@ -32,6 +32,16 @@ class CharactersFragment : Fragment() {
     var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
 
     @Suppress("UNCHECKED_CAST")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Se cargan en las variables la información recibida en los bundles
+        language = arguments?.getString("language").toString()
+        characterList = (arguments?.getSerializable("characterList") as HashMap<String, Character>?)!!
+        characterImageList = (arguments?.getSerializable("characterImageList") as HashMap<String, CharacterImage>?)!!
+        elementImageList = (arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,20 +49,15 @@ class CharactersFragment : Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
         rvCharacters = view.findViewById(R.id.rvCharacters)
-        
-        // Se cargan en las variables la información recibida en los bundles
-        language = arguments?.getString("language").toString()
-        characterList = (arguments?.getSerializable("characterList") as HashMap<String, Character>?)!!
-        characterImageList = (arguments?.getSerializable("characterImageList") as HashMap<String, CharacterImage>?)!!
-        elementImageList = (arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>)
+        return view
+    }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Esta acción es para que en el RecyclerView salgan los personajes ordenador por su nombre
         val characterListSorted: MutableMap<String, Character> = TreeMap(characterList)
         queryTalents()
-
-
         fillCharacters(characterListSorted)
-        return view
     }
 
     private fun queryTalents() {
@@ -70,8 +75,8 @@ class CharactersFragment : Fragment() {
                     putExtra("character", characterList.getValue(defaultName))
                     putExtra("characterImage", characterImageList.getValue(defaultName))
                     putExtra("elementImageList", elementImageList)
-                    putExtra("talentsList", talentsList)
-                    putExtra("talentsImagesList", talentsImagesList)
+                    putExtra("talents", talentsList.getValue(defaultName))
+                    putExtra("talentsImages", talentsImagesList.getValue(defaultName))
                 }
                 startActivity(intent)
             }
@@ -107,6 +112,7 @@ class CharactersFragment : Fragment() {
                         talentsList[it.key.toString()] = it.getValue(Talents::class.java)!!
                     }
                 }
+
 
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")

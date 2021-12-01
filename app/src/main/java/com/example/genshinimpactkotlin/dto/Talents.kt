@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Talents(
@@ -21,7 +21,7 @@ data class Talents(
     */
 ) : Parcelable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Combat1(
@@ -30,7 +30,7 @@ data class Combat1(
     val name: String? = null
 ) : Parcelable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Combat2(
@@ -40,7 +40,7 @@ data class Combat2(
     // val attributes: AttributesX,
 ) : Parcelable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Combat3(
@@ -50,7 +50,7 @@ data class Combat3(
     // val attributes: AttributesXX,
 ) : Parcelable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Passive1(
@@ -58,7 +58,7 @@ data class Passive1(
     val name: String? = null
 ) : Parcelable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Passive2(
@@ -66,7 +66,7 @@ data class Passive2(
     val name: String? = null
 ) : Parcelable
 
-@Serializable
+
 @Parcelize
 @IgnoreExtraProperties
 data class Passive3(

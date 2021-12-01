@@ -12,27 +12,30 @@ import com.example.genshinimpactkotlin.dto.*
 
 import com.squareup.picasso.Picasso
 
-class IndividualCharacterFragmentStat : Fragment() {
+class CharacterIndividualInfoFragment : Fragment() {
     var character: Character = Character()
     var characterImage: CharacterImage = CharacterImage()
     var elementListImage: HashMap <String,ElementImage> = hashMapOf()
-    var talentsList: HashMap <String, Talents> = hashMapOf()
-    var talentsImagesList: HashMap <String, TalentsImages> = hashMapOf()
+
+
     @Suppress("UNCHECKED_CAST")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        character = arguments?.get("character") as Character
+        characterImage = arguments?.get("characterImage") as CharacterImage
+        elementListImage = arguments?.get("elementImageList") as HashMap<String, ElementImage>
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view:View = inflater.inflate(R.layout.fragment_character_individual_info, container, false);
-        character = arguments?.get("character") as Character
-        characterImage = arguments?.get("characterImage") as CharacterImage
-        elementListImage = arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>
-        talentsList = arguments?.getSerializable("talentsList") as HashMap<String, Talents>
-        talentsImagesList = arguments?.getSerializable("talentsImagesList") as HashMap<String, TalentsImages>
+        return inflater.inflate(R.layout.fragment_character_individual_info, container, false);
+    }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fillCharacter(view)
-        return view
     }
 
     private fun fillCharacter(view: View) {

@@ -18,5 +18,8 @@
     <string name="region">Región</string>
     <string name="talentos">Talentos</string>
     <string name="description">Descripción</string>
+    <string name="map">Mapa</string>
+    <string name="map_popupText">El mapa interactivo está desarrollado por terceros, cualquier acción dentro de este apartado será bajo su propia respobilidad.</string>
+    <string name="agree">Acepto</string>
 
 </resources>

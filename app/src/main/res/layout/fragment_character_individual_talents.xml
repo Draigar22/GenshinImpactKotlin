@@ -11,8 +11,10 @@
         android:layout_height="wrap_content"
         android:text="@string/talentos"
         android:textAlignment="center"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        style="@style/capitalTextSize"
+        android:textStyle="bold"
+        android:alpha="0.9"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewChar_ind_info"
         android:layout_width="match_parent"
@@ -23,7 +25,8 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:alpha="0.9">
 
         <LinearLayout
             android:id="@+id/ind_talentContainer"
