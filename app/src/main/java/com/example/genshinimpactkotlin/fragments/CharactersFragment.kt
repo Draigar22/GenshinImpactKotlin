@@ -3,6 +3,7 @@ package com.example.genshinimpactkotlin.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,7 +17,7 @@ import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class CharactersFragment : Fragment() {
+class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
     val characters: ArrayList<CharacterImageNameList> = arrayListOf()
     var rvCharacters: RecyclerView? = null
     var characterList: HashMap<String, Character> = hashMapOf()
@@ -25,6 +26,7 @@ class CharactersFragment : Fragment() {
     var talentsList: HashMap<String, Talents> = hashMapOf()
     var talentsImagesList: HashMap<String, TalentsImages> = hashMapOf()
     var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
+    var searchView : SearchView? = null
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,7 @@ class CharactersFragment : Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
         rvCharacters = view.findViewById(R.id.rvCharacter)
+        searchView = view.findViewById(R.id.searchView)
         return view
     }
 
@@ -95,6 +98,9 @@ class CharactersFragment : Fragment() {
 
     }
 
+    private fun initListener() {
+        searchView?.setOnQueryTextListener(this)
+    }
 
     private fun queryTalentsInfo(refTalents: DatabaseReference) {
         refTalents.keepSynced(true)
@@ -165,6 +171,14 @@ class CharactersFragment : Fragment() {
         })
 
 
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("Not yet implemented")
     }
 
 }
