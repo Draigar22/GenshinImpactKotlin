@@ -15,6 +15,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:menu="@menu/bottommenu"
+        app:labelVisibilityMode="labeled"
         />
 
     <FrameLayout
@@ -24,8 +25,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         >
-
-
     </FrameLayout>
 
 

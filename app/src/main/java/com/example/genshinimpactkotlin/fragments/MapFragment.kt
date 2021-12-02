@@ -15,8 +15,8 @@ import android.widget.Button
 import android.view.WindowManager
 
 import android.view.LayoutInflater
-
-
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 
 class MapFragment : Fragment() {
@@ -38,17 +38,25 @@ class MapFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val transaction = parentFragmentManager.beginTransaction()
-        val firstTime = arguments?.get("firstTimePopUp") as Boolean
-        if (!firstTime)
-            transaction.add(R.id.fragment_container, PopupFragment()).commit()
         val myWebView = view.findViewById<WebView>(R.id.map_interactiveMap)
         myWebView.webChromeClient = WebChromeClient()
         myWebView.apply {
             myWebView.loadUrl("https://mapgenie.io/genshin-impact/maps/teyvat")
             settings.javaScriptEnabled = true
-//            settings.safeBrowsingEnabled = true
+        }
+        if (!(arguments?.get("alertDialog") as Boolean)) {
+            val dialog = context?.let {
+                AlertDialog.Builder(it)
+                    .setTitle("Contenido externo")
+                    .setMessage(R.string.mapAlertDialog)
+                    .setPositiveButton("Vale") { view, _ ->
+                        view.dismiss()
+                    }
+                    .setCancelable(false)
+                    .create()
+            }
 
+            dialog?.show()
         }
     }
 

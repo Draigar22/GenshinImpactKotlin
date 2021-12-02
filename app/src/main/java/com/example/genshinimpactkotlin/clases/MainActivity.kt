@@ -17,44 +17,42 @@ class MainActivity : AppCompatActivity() {
 
     // TODO EN PORTRAIT (giro pantalla) DE CHARACTERS HABRÏA QUE QUITAR 1 PERONAJE PARA QUE QUERE MEJOR
     // TODO ANIMACIONES BOTONES
+    // TODO EL VIAJERO EN LISTA PERSONAJES ESTÁ BUG, (Electro, geo, anemo...)
 
     private val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private var language: String = "Spanish"
     private var actualId: Int = -10
-    private val characterList: HashMap<String, Character>  = hashMapOf()
-    private val characterListImage: HashMap<String, CharacterImage> = hashMapOf()
-    private val elementListImage: HashMap<String, ElementImage> = hashMapOf()
-    private var firstTimePopUp: Boolean = false
+    private var firstTime: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mDatabase.setPersistenceEnabled(true)
+        mDatabase.getReference("Image").keepSynced(true)
         val bn: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        val bundle = Bundle()
+        bundle.putString("language", language)
         if (savedInstanceState == null) {
             replaceFragment(DashboardFragment())
             bn.selectedItemId = R.id.ic_dashboard
             actualId = R.id.ic_dashboard
         }
-        startQuerys(
-            mDatabase.getReference("Data/$language/characters"),
-            mDatabase.getReference("Image")
-        )
-
-
 
         bn.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_characters -> {
                     if (actualId != R.id.ic_characters) {
                         val fragment = CharactersFragment()
-                        val bundle = Bundle()
-                        bundle.putSerializable("characterList", characterList)
-                        bundle.putSerializable("characterImageList", characterListImage)
-                        bundle.putSerializable("elementImageList", elementListImage)
-                        bundle.putString("language", language)
-
                         fragment.arguments = bundle
                         replaceFragment(fragment)
                         actualId = R.id.ic_characters
+                    }
+                }
+                R.id.ic_weapons -> {
+                    if (actualId != R.id.ic_weapons) {
+                        val fragment = WeaponsFragment()
+                        fragment.arguments = bundle
+                        replaceFragment(fragment)
+                        actualId = R.id.ic_weapons
                     }
                 }
                 R.id.ic_dashboard -> {
@@ -64,16 +62,15 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.ic_map -> {
-
                     if (actualId != R.id.ic_map) {
                         val fragment = MapFragment()
                         val bundle = Bundle()
-                        bundle.putBoolean("firstTimePopUp", firstTimePopUp)
+                        bundle.putBoolean("alertDialog", firstTime)
                         fragment.arguments = bundle
                         replaceFragment(fragment)
                         actualId = R.id.ic_map
-                        if (!firstTimePopUp) {
-                            firstTimePopUp = true
+                        if (!firstTime) {
+                            firstTime = true
                         }
                     }
                 }
@@ -86,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()
     }
     override fun onBackPressed() {
@@ -99,38 +96,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startQuerys(refCharacters: DatabaseReference, refImage: DatabaseReference) {
-        // Consulta a refCharacters
-        refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.forEach {
-                    characterList[it.key.toString()] = it.getValue(Character::class.java)!!
-                }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
-            }
-        })
-
-
-            // Consulta a refImage
-        refImage.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.child("elements").children.forEach {
-                    elementListImage[it.key.toString()] = it.getValue(ElementImage::class.java)!!
-                }
-                snapshot.child("characters").children.forEach {
-                    characterListImage[it.key.toString()] = it.getValue(CharacterImage::class.java)!!
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
-            }
-        })
-
-
-    }
 
 }

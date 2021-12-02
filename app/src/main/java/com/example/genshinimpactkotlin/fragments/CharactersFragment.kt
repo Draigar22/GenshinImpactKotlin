@@ -2,10 +2,8 @@ package com.example.genshinimpactkotlin.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +12,7 @@ import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
 import com.example.genshinimpactkotlin.dto.*
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -34,13 +29,14 @@ class CharactersFragment : Fragment() {
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Se cargan en las variables la información recibida en los bundles
+        val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         language = arguments?.getString("language").toString()
-        characterList = (arguments?.getSerializable("characterList") as HashMap<String, Character>?)!!
-        characterImageList = (arguments?.getSerializable("characterImageList") as HashMap<String, CharacterImage>?)!!
-        elementImageList = (arguments?.getSerializable("elementImageList") as HashMap<String, ElementImage>)
+        startQuerys(
+            mDatabase.getReference("Data/$language/characters"),
+            mDatabase.getReference("Image")
+        )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,22 +44,18 @@ class CharactersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
-        rvCharacters = view.findViewById(R.id.rvCharacters)
+        rvCharacters = view.findViewById(R.id.rvCharacter)
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Esta acción es para que en el RecyclerView salgan los personajes ordenador por su nombre
-        val characterListSorted: MutableMap<String, Character> = TreeMap(characterList)
-        queryTalents()
-        fillCharacters(characterListSorted)
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun queryTalents() {
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
-        queryTalentsInfo(mDatabase)
-        queryTalentsImage(mDatabase)
+        queryTalentsInfo(mDatabase.getReference("Data/$language/talents"))
+        queryTalentsImage(mDatabase.getReference("Image/talents"))
     }
 
     private fun initRecycler() {
@@ -104,9 +96,9 @@ class CharactersFragment : Fragment() {
     }
 
 
-    private fun queryTalentsInfo(mDatabase: FirebaseDatabase) {
-        mDatabase.getReference("Data/$language/talents")
-            .addListenerForSingleValueEvent(object : ValueEventListener{
+    private fun queryTalentsInfo(refTalents: DatabaseReference) {
+        refTalents.keepSynced(true)
+        refTalents.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.children.forEach {
                         talentsList[it.key.toString()] = it.getValue(Talents::class.java)!!
@@ -121,9 +113,9 @@ class CharactersFragment : Fragment() {
             })
     }
 
-    private fun queryTalentsImage(mDatabase: FirebaseDatabase) {
-        mDatabase.getReference("Image/talents")
-            .addListenerForSingleValueEvent(object : ValueEventListener{
+    private fun queryTalentsImage(refTalentsImage: DatabaseReference) {
+        refTalentsImage.keepSynced(true)
+        refTalentsImage.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.children.forEach {
                         talentsImagesList[it.key.toString()] = it.getValue(TalentsImages::class.java)!!
@@ -135,6 +127,44 @@ class CharactersFragment : Fragment() {
                 }
 
             })
+    }
+    private fun startQuerys(refCharacters: DatabaseReference, refImage: DatabaseReference) {
+        // Consulta a refCharacters
+        refCharacters.keepSynced(true)
+        refImage.keepSynced(true)
+
+        // Consulta a refImage
+        refImage.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.child("elements").children.forEach {
+                    elementImageList[it.key.toString()] = it.getValue(ElementImage::class.java)!!
+                }
+                snapshot.child("characters").children.forEach {
+                    characterImageList[it.key.toString()] = it.getValue(CharacterImage::class.java)!!
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // TODO HACER ONCANCELLED
+            }
+        })
+        refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach {
+                    characterList[it.key.toString()] = it.getValue(Character::class.java)!!
+                }
+                val characterListSorted: MutableMap<String, Character> = TreeMap(characterList)
+                queryTalents()
+                fillCharacters(characterListSorted)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // TODO HACER ONCANCELLED
+            }
+        })
+
+
     }
 
 }
