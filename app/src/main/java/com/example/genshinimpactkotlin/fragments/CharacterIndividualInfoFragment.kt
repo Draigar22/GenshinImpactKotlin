@@ -39,19 +39,19 @@ class CharacterIndividualInfoFragment : Fragment() {
     }
 
     private fun fillCharacter(view: View) {
-        view.findViewById<TextView>(R.id.ind_tvCharacterName).text = character.name
-        view.findViewById<TextView>(R.id.ind_tvCharacterRegion).text = character.region
-        view.findViewById<TextView>(R.id.ind_tvCharacterWeaponType).text = character.weapontype
-        view.findViewById<TextView>(R.id.ind_tvCharacterSubStat).text = character.substat
-        view.findViewById<TextView>(R.id.ind_tvCharacterElement).text = character.element
-        view.findViewById<TextView>(R.id.ind_tvDescription).text = character.description
-        Picasso.get().load(searchElement()).into(view.findViewById<ImageView>(R.id.ind_ivElement))
+        view.findViewById<TextView>(R.id.indCharacter_tvCharacterName).text = character.name
+        view.findViewById<TextView>(R.id.indCharacter_tvCharacterRegion).text = character.region
+        view.findViewById<TextView>(R.id.indCharacter_tvCharacterWeaponType).text = character.weapontype
+        view.findViewById<TextView>(R.id.indCharacter_tvCharacterSubStat).text = character.substat
+        view.findViewById<TextView>(R.id.indCharacter_tvCharacterElement).text = character.element
+        view.findViewById<TextView>(R.id.indCharacter_tvDescription).text = character.description
+        Picasso.get().load(searchElement()).into(view.findViewById<ImageView>(R.id.indCharacter_ivElement))
         if (!characterImage.cover2.isNullOrBlank())
             Picasso.get().load(
-                characterImage.cover2).into(view.findViewById<ImageView>(R.id.ind_ivCharacterImage))
+                characterImage.cover2).into(view.findViewById<ImageView>(R.id.indCharacter_ivCharacterImage))
         else
             Picasso.get().load(
-                characterImage.portrait).into(view.findViewById<ImageView>(R.id.ind_ivCharacterImage))
+                characterImage.portrait).into(view.findViewById<ImageView>(R.id.indCharacter_ivCharacterImage))
     }
 
     private fun searchElement(): String? {

@@ -6,21 +6,23 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Weapon(
     val name: String? = null,
+    val weapontype: String? = null,
+    val rarity: String? = null,
     val baseatk: Int? = null,
+    val substat: String? = null,
     val description: String? = null,
     val effectname: String? = null,
     val effect: String? = null,
-    val rarity: String? = null,
-    val substat: String? = null,
-    val weapontype: String? = null
+    val r1: List<String>? = null
     /*
-    val subvalue: String? = null,
-    val weaponmaterialtype: String? = null,
-    val r1: List<String>? = null,
     val r2: List<String>? = null,
     val r3: List<String>? = null,
     val r4: List<String>? = null,
     val r5: List<String>? = null,
+
+    val subvalue: String? = null,
+    val weaponmaterialtype: String? = null,
+
     val costs: Costs? = null,
      */
 ) : Parcelable

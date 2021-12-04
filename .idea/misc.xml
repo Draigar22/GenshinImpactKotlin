@@ -44,6 +44,15 @@
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/menu/topbar.xml" value="0.33" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/SIS006/Desktop/Prueba/GenshinImpactKotlin/app/src/main/res/xml/style.xml" value="0.246875" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/activity_individual_character.xml" value="0.3380208333333333" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/activity_individual_template.xml" value="0.5072463768115942" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_info.xml" value="0.33" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_individual_talents.xml" value="0.5072463768115942" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_character_item_talent.xml" value="0.5072463768115942" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_dashboard.xml" value="0.3380208333333333" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_map.xml" value="0.5072463768115942" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/fragment_weapon_individual_info.xml" value="0.3380208333333333" />
+        <entry key="..\:/Users/draig/AndroidStudioProjects/GenshinImpactKotlin/app/src/main/res/layout/recycler_character_item.xml" value="0.5072463768115942" />
       </map>
     </option>
   </component>

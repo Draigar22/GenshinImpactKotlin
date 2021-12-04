@@ -14,6 +14,7 @@ import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.adapters.WeaponAdapter
 import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
+import com.example.genshinimpactkotlin.clases.IndividualWeaponActivity
 import com.example.genshinimpactkotlin.clases.WeaponImageNameList
 import com.example.genshinimpactkotlin.dto.*
 import com.google.firebase.database.*
@@ -78,13 +79,17 @@ class WeaponsFragment : Fragment() {
                     weaponList[it.key.toString()] =
                         Weapon(
                             it.child("name").value.toString(),
+                            it.child("weapontype").value.toString(),
+                            it.child("rarity").value.toString(),
                             it.child("baseatk").value.toString().toInt(),
+                            it.child("substat").value.toString(),
                             it.child("description").value.toString(),
                             it.child("effectname").value.toString(),
                             it.child("effect").value.toString(),
-                            it.child("rarity").value.toString(),
-                            it.child("substat").value.toString(),
-                            it.child("weapontype").value.toString()
+                            when(it.child("r1").exists()) {
+                                true -> it.child("r1").value as List<String>
+                                false -> null
+                            }
                         )
                 }
                 val weaponListSorted: MutableMap<String, Weapon> = TreeMap(weaponList)
@@ -118,11 +123,11 @@ class WeaponsFragment : Fragment() {
         adapter.setOnItemClickListener(object : WeaponAdapter.onItemClickListener {
             override fun onItemClick(defaultName: String, position: Int) {
 
-                val intent = Intent(context, IndividualCharacterActivity::class.java).apply {
+                val intent = Intent(context, IndividualWeaponActivity::class.java).apply {
                     putExtra("weapon", weaponList.getValue(defaultName))
-                    putExtra("character", weaponImagesList.getValue(defaultName))
+                    putExtra("weaponImage", weaponImagesList.getValue(defaultName))
                 }
-//                startActivity(intent)
+                startActivity(intent)
             }
         })
 

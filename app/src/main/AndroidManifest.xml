@@ -24,6 +24,9 @@
         <activity
             android:name=".clases.IndividualCharacterActivity"
             android:exported="true"/>
+        <activity
+            android:name=".clases.IndividualWeaponActivity"
+            android:exported="true"/>
     </application>
 
 

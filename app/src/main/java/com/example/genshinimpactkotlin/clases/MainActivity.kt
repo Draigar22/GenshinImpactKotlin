@@ -26,12 +26,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mDatabase.setPersistenceEnabled(true)
-        mDatabase.getReference("Image").keepSynced(true)
         val bn: BottomNavigationView = findViewById(R.id.bottom_navigation)
         val bundle = Bundle()
         bundle.putString("language", language)
         if (savedInstanceState == null) {
+            mDatabase.setPersistenceEnabled(true)
+            mDatabase.getReference("Data")
+            mDatabase.getReference("Image")
             replaceFragment(DashboardFragment())
             bn.selectedItemId = R.id.ic_dashboard
             actualId = R.id.ic_dashboard

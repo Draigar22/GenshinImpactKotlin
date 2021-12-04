@@ -14,7 +14,7 @@ class IndividualCharacterActivity : AppCompatActivity() {
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_individual_character)
+        setContentView(R.layout.activity_individual_template)
         val transaction = supportFragmentManager.beginTransaction()
 
         // Primer fragmento

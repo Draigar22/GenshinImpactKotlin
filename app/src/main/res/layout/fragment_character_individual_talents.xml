@@ -16,7 +16,7 @@
         android:alpha="0.9"/>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewChar_ind_info"
+        android:id="@+id/indCharacter_cvInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"

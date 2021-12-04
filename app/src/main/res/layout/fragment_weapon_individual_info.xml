@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/indCharacter_cvInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="228dp"
+        android:alpha="0.9"
+        android:foregroundGravity="center_horizontal"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weapontype"
+                        android:textColor="@color/primaryLightColor" />
+
+                    <TextView
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/rarity"
+                        android:textColor="@color/primaryLightColor" />
+
+                    <TextView
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="4dp"
+                        android:text="@string/baseatk"
+                        android:textColor="@color/primaryLightColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCaractArma1" />
+
+                    <TextView
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/substat"
+                        android:textColor="@color/primaryLightColor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/indWeapon_tvType"
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/prueba" />
+
+                    <TextView
+                        android:id="@+id/indWeapon_tvRarity"
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/prueba" />
+
+                    <TextView
+                        android:id="@+id/indWeapon_tvBaseAttack"
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/prueba" />
+
+                    <TextView
+                        android:id="@+id/indWeapon_tvSubStat"
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/prueba" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/mediumTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/description"
+                android:textColor="@color/primaryLightColor" />
+
+            <TextView
+                android:id="@+id/indWeapon_tvDescription"
+                style="@style/normalTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prueba" />
+
+            <TextView
+                android:id="@+id/indWeapon_tvEffectName"
+                style="@style/mediumTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/effectname"
+                android:textAlignment="center"
+                android:textColor="@color/primaryLightColor" />
+
+            <TextView
+                android:id="@+id/indWeapon_tvEffect"
+                style="@style/normalTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prueba"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:alpha="0.9"
+        android:foregroundGravity="center_horizontal"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/indCharacter_cvInfo"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/indWeapon_tvWeaponName"
+            style="@style/capitalTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/prueba"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/indWeapon_ivWeaponImage"
+        android:layout_width="295dp"
+        android:layout_height="248dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

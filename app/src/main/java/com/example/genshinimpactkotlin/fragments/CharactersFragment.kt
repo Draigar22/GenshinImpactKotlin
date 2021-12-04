@@ -37,6 +37,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
             mDatabase.getReference("Data/$language/characters"),
             mDatabase.getReference("Image")
         )
+
     }
 
 
@@ -49,10 +50,6 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
         rvCharacters = view.findViewById(R.id.rvCharacter)
         searchView = view.findViewById(R.id.searchView)
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun queryTalents() {

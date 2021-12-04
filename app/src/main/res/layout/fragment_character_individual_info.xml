@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/ind_ivCharacterImage"
+        android:id="@+id/indCharacter_ivCharacterImage"
         android:layout_width="960px"
         android:layout_height="1624px"
         android:scaleType="fitXY"
@@ -18,7 +18,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewChar_ind_info"
+        android:id="@+id/indCharacter_cvInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -50,7 +50,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textViewCaractElemento1"
+                            android:id="@+id/indCharacter_tvCaractElemento1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/elemento"
@@ -68,7 +68,7 @@
                             />
 
                         <TextView
-                            android:id="@+id/textViewCaractAtributo1"
+                            android:id="@+id/indCharacter_tvCaractAtributo1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -80,7 +80,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/textViewCaractArma1" />
 
                         <TextView
-                            android:id="@+id/textViewCaractRegion1"
+                            android:id="@+id/indCharacter_tvCaractRegion1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -97,14 +97,14 @@
                         android:layout_marginStart="20dp">
 
                         <TextView
-                            android:id="@+id/ind_tvCharacterElement"
+                            android:id="@+id/indCharacter_tvCharacterElement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/prueba"
                             style="@style/mediumTextSize"/>
 
                         <TextView
-                            android:id="@+id/ind_tvCharacterWeaponType"
+                            android:id="@+id/indCharacter_tvCharacterWeaponType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -112,7 +112,7 @@
                             style="@style/mediumTextSize" />
 
                         <TextView
-                            android:id="@+id/ind_tvCharacterSubStat"
+                            android:id="@+id/indCharacter_tvCharacterSubStat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -121,7 +121,7 @@
                              />
 
                         <TextView
-                            android:id="@+id/ind_tvCharacterRegion"
+                            android:id="@+id/indCharacter_tvCharacterRegion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -135,7 +135,7 @@
                         >
 
                         <ImageView
-                            android:id="@+id/ind_ivElement"
+                            android:id="@+id/indCharacter_ivElement"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:alpha="1"
@@ -155,11 +155,10 @@
                 />
 
             <TextView
-                android:id="@+id/ind_tvDescription"
+                android:id="@+id/indCharacter_tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/prueba"
-                android:justificationMode="inter_word"
                 style="@style/normalTextSize"/>
         </LinearLayout>
 
@@ -176,12 +175,12 @@
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/cardViewChar_ind_info"
+        app:layout_constraintBottom_toTopOf="@+id/indCharacter_cvInfo"
         app:layout_constraintStart_toStartOf="parent"
         android:alpha="0.9">
 
         <TextView
-            android:id="@+id/ind_tvCharacterName"
+            android:id="@+id/indCharacter_tvCharacterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
