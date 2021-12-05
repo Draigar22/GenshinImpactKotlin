@@ -1,6 +1,6 @@
-package com.example.genshinimpactkotlin.clases
+package com.example.genshinimpactkotlin.entidades
 
-data class CharacterImageNameList(
+data class CharacterImageName(
     val defaultName: String?,
     val languageName:String?,
     val element:String?,

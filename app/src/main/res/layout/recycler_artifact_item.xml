@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/indCharacter_cvInfo"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.9"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/ivIconArtifact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                tools:srcCompat="@tools:sample/avatars"
+                />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvArtifactName"
+                        style="@style/mediumTextSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="@string/prueba"
+
+                        android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        style="@style/mediumTextSize"
+                        android:id="@+id/tvTwoPcEffect1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/twopc"
+                        android:textColor="@color/primaryLightColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCaractArma1" />
+
+                    <TextView
+                        style="@style/mediumTextSize"
+                        android:id="@+id/tvOnePcEffect1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/onepc"
+                        android:visibility="gone"
+                        android:textColor="@color/primaryLightColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCaractArma1" />
+                    <TextView
+                        android:id="@+id/tvOnePcEffect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:visibility="gone"
+                        style="@style/smallTextSize"
+                        android:text="@string/prueba" />
+
+                    <TextView
+                        android:id="@+id/tvTwoPcEffect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/smallTextSize"
+                        android:text="@string/prueba"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:id="@+id/tvFourPcEffect1"
+                        style="@style/mediumTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/fourpc"
+                        android:textColor="@color/primaryLightColor" />
+                    <TextView
+                        android:id="@+id/tvFourPcEffect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        style="@style/smallTextSize"
+                        android:text="@string/prueba" />
+                </LinearLayout>
+
+        </LinearLayout>
+
+</androidx.cardview.widget.CardView>

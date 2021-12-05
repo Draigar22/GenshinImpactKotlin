@@ -41,5 +41,9 @@
     <string name="baseatk">Ataque Base</string>
     <string name="substat">Atributo Secundario</string>
     <string name="effectname">Efecto</string>
+    <string name="artifacts">Artefactos</string>
+    <string name="twopc">Efecto 2 Piezas</string>
+    <string name="fourpc">Efecto 4 Piezas</string>
+    <string name="onepc">Efecto 1 Pieza</string>
 
 </resources>

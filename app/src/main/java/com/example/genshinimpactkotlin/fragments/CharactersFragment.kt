@@ -3,31 +3,30 @@ package com.example.genshinimpactkotlin.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
+import android.widget.SearchView
 
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.genshinimpactkotlin.adapters.CharacterAdapter
-import com.example.genshinimpactkotlin.clases.CharacterImageNameList
+import com.example.genshinimpactkotlin.entidades.CharacterImageName
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
-import com.example.genshinimpactkotlin.dto.*
+import com.example.genshinimpactkotlin.entidades.*
 import com.example.genshinimpactkotlin.interfaces.FirebaseCallBack
 import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class CharactersFragment : Fragment() {
-    val characters: ArrayList<CharacterImageNameList> = arrayListOf()
+class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
+    val characters: ArrayList<CharacterImageName> = arrayListOf()
     var rvCharacters: RecyclerView? = null
     var characterList: HashMap<String, Character> = hashMapOf()
     var characterImageList: HashMap<String, CharacterImage> = hashMapOf()
     var elementImageList: HashMap<String, ElementImage> = hashMapOf()
-    var talentsList: HashMap<String, Talents> = hashMapOf()
-    var talentsImagesList: HashMap<String, TalentsImages> = hashMapOf()
     var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
     var searchView : SearchView? = null
+    private var characterAdapter: CharacterAdapter? = null
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +42,13 @@ class CharactersFragment : Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
         rvCharacters = view.findViewById(R.id.rvCharacter)
-        searchView = view.findViewById(R.id.searchView)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+        searchView = view.findViewById(R.id.searchViewCharacters)
+        initListener()
         readData(object: FirebaseCallBack {
             override fun onCallback() {
                 if (characterList.isNotEmpty() && characterImageList.isNotEmpty()) {
@@ -59,6 +59,10 @@ class CharactersFragment : Fragment() {
 
         }, mDatabase.getReference("Data/$language/characters"),
             mDatabase.getReference("Image"))
+    }
+
+    private fun initListener() {
+        searchView?.setOnQueryTextListener(this)
     }
 
     private fun readData(firebaseCallBack: FirebaseCallBack, refCharacters: DatabaseReference, refImage: DatabaseReference) {
@@ -98,8 +102,8 @@ class CharactersFragment : Fragment() {
 
 
     private fun initRecycler() {
-        val adapter = CharacterAdapter(characters)
-        adapter.setOnItemClickListener(object : CharacterAdapter.onItemClickListener {
+        characterAdapter = CharacterAdapter(characters)
+        characterAdapter!!.setOnItemClickListener(object : CharacterAdapter.onItemClickListener {
             override fun onItemClick(defaultName: String, position: Int) {
 
                 val intent = Intent(context, IndividualCharacterActivity::class.java).apply {
@@ -108,21 +112,20 @@ class CharactersFragment : Fragment() {
                     putExtra("elementImageList", elementImageList)
                     putExtra("language", language)
                     putExtra("defaultName", defaultName)
-//                    putExtra("talents", talentsList.getValue(defaultName))
-//                    putExtra("talentsImages", talentsImagesList.getValue(defaultName))
                 }
                 startActivity(intent)
             }
         })
-        rvCharacters?.adapter = adapter
-        val columns = (((resources.displayMetrics.widthPixels  ))/200)-1;
-        rvCharacters?.layoutManager = GridLayoutManager(context, columns)
+        rvCharacters?.adapter = characterAdapter
+        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(270));
+        rvCharacters?.layoutManager = columns?.let { GridLayoutManager(context, it) }
+
     }
 
     private fun fillCharacters(characterListSorted: MutableMap<String, Character>) {
         characterListSorted.keys.forEach {
             characters.add(
-                CharacterImageNameList(
+                CharacterImageName(
                     it,
                     characterList[it]?.name,
                     characterList[it]?.element,
@@ -133,5 +136,15 @@ class CharactersFragment : Fragment() {
             )
         }
         initRecycler()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        characterAdapter?.filterName(query!!)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        characterAdapter?.filterName(newText!!)
+        return false
     }
 }

@@ -5,17 +5,17 @@
 
 
     <item
-        android:id="@+id/ic_characters"
-        android:icon="@drawable/mage"
-        android:title="@string/personajes"/>
+        android:id="@+id/ic_artifacts"
+        android:icon="@drawable/ic_nav_artifacts_24"
+        android:title="@string/artifacts"/>
     <item
         android:id="@+id/ic_weapons"
         android:icon="@drawable/ic_nav_weapons"
         android:title="@string/weapons"/>
     <item
-        android:id="@+id/ic_dashboard"
-        android:icon="@drawable/ic_nav_dashboard_24"
-        android:title="@string/principal"/>
+        android:id="@+id/ic_characters"
+        android:icon="@drawable/mage"
+        android:title="@string/personajes"/>
     <item
         android:id="@+id/ic_map"
         android:icon="@drawable/ic_nav_map_24dp"

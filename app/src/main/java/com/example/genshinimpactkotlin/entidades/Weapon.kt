@@ -1,4 +1,4 @@
-package com.example.genshinimpactkotlin.dto
+package com.example.genshinimpactkotlin.entidades
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

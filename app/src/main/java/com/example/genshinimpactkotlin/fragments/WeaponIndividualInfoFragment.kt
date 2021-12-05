@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isGone
 import com.example.genshinimpactkotlin.R
-import com.example.genshinimpactkotlin.dto.*
+import com.example.genshinimpactkotlin.entidades.*
 
 import com.squareup.picasso.Picasso
 

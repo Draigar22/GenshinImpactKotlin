@@ -1,6 +1,6 @@
-package com.example.genshinimpactkotlin.clases
+package com.example.genshinimpactkotlin.entidades
 
-data class WeaponImageNameList(
+data class WeaponImageName(
     val defaultName: String?,
     val languageName:String?,
     val weaponType:String?,

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.example.genshinimpactkotlin.R
-import com.example.genshinimpactkotlin.dto.*
+import com.example.genshinimpactkotlin.entidades.*
 import com.example.genshinimpactkotlin.interfaces.FirebaseCallBack
 import com.google.firebase.database.*
 

@@ -2,10 +2,9 @@ package com.example.genshinimpactkotlin.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,18 +12,20 @@ import com.example.genshinimpactkotlin.interfaces.FirebaseCallBack
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.adapters.WeaponAdapter
 import com.example.genshinimpactkotlin.clases.IndividualWeaponActivity
-import com.example.genshinimpactkotlin.clases.WeaponImageNameList
-import com.example.genshinimpactkotlin.dto.*
+import com.example.genshinimpactkotlin.entidades.WeaponImageName
+import com.example.genshinimpactkotlin.entidades.*
 import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class WeaponsFragment : Fragment() {
-    private val weapons: ArrayList<WeaponImageNameList> = arrayListOf()
+class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
+    private val weapons: ArrayList<WeaponImageName> = arrayListOf()
     private var rvWeapons: RecyclerView? = null
     private var weaponList: HashMap<String, Weapon> = hashMapOf()
     private var weaponImagesList: HashMap<String, WeaponImage> = hashMapOf()
     private var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
+    private var searchView: SearchView? = null
+    private var weaponAdapter: WeaponAdapter? = null
 
 
     override fun onCreateView(
@@ -39,7 +40,8 @@ class WeaponsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         rvWeapons = view.findViewById(R.id.rvWeapons)
-
+        searchView = view.findViewById(R.id.searchViewWeapon)
+        initListener()
         /* Cuando "weaponImagesListLocal" y "weaponListLocal" no estén vacías significará que
          ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "weaponListLocal"
          e iniciar "fillWeapons" que necesitará datos de ambas colecciones. */
@@ -61,7 +63,7 @@ class WeaponsFragment : Fragment() {
     private fun fillWeapons(weaponListSorted: MutableMap<String, Weapon>) {
         weaponListSorted.keys.forEach {
             weapons.add(
-                WeaponImageNameList(
+                WeaponImageName(
                     it,
                     weaponList[it]?.name,
                     weaponList[it]?.weapontype,
@@ -77,8 +79,8 @@ class WeaponsFragment : Fragment() {
      * Llena rvWeapons (RecyclerView) con su correspondiente adaptador y modificaciones
      */
     private fun initRecycler() {
-        val adapter = WeaponAdapter(weapons)
-        adapter.setOnItemClickListener(object : WeaponAdapter.onItemClickListener {
+        weaponAdapter = WeaponAdapter(weapons)
+        weaponAdapter!!.setOnItemClickListener(object : WeaponAdapter.onItemClickListener {
             override fun onItemClick(defaultName: String, position: Int) {
 
                 val intent = Intent(context, IndividualWeaponActivity::class.java).apply {
@@ -89,14 +91,15 @@ class WeaponsFragment : Fragment() {
             }
         })
 
-        rvWeapons?.adapter = adapter
-        val columns = (((resources.displayMetrics.widthPixels))/200)-1;
-        rvWeapons?.layoutManager = GridLayoutManager(context, columns)
+        rvWeapons?.adapter = weaponAdapter
+        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(270));
+        rvWeapons?.layoutManager = columns?.let { GridLayoutManager(context, it) }
     }
 
     /**
      * Este método se utiliza de forma auxiliar para utilizar la interface "FirebaseCallBack"
      * que se llama al final de cada query.
+     * Dentro se realizan 2 Querys independientes a la base de datos
      */
     private fun readData(firebaseCallBack: FirebaseCallBack, refWeapons: DatabaseReference, refWeaponImage: DatabaseReference) {
         refWeapons.keepSynced(true)
@@ -145,5 +148,17 @@ class WeaponsFragment : Fragment() {
             }
         })
 
+    }
+    private fun initListener() {
+        searchView?.setOnQueryTextListener(this)
+    }
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        weaponAdapter?.filterName(query!!)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        weaponAdapter?.filterName(newText!!)
+        return false
     }
 }

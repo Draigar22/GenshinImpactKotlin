@@ -4,9 +4,7 @@ package com.example.genshinimpactkotlin.clases
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.genshinimpactkotlin.R
-import com.example.genshinimpactkotlin.dto.*
-import com.example.genshinimpactkotlin.fragments.CharacterIndividualInfoFragment
-import com.example.genshinimpactkotlin.fragments.CharacterIndividualTalentFragment
+import com.example.genshinimpactkotlin.entidades.*
 import com.example.genshinimpactkotlin.fragments.WeaponIndividualInfoFragment
 
 
