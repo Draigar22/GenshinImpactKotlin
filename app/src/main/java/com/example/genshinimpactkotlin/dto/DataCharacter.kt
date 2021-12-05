@@ -3,7 +3,6 @@ package com.example.genshinimpactkotlin.dto
 import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.*
-import kotlinx.serialization.Serializable
 
 
 @Parcelize
@@ -17,9 +16,6 @@ data class Character(
     var region: String? = null,
     var substat: String? = null,
     var weapontype: String? = null,
-
-
-
 
     /* Variables no utilizadas
     var birthday: String? = null,

@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putString("language", language)
         if (savedInstanceState == null) {
+            mDatabase.setPersistenceEnabled(true)
             replaceFragment(DashboardFragment())
             bn.selectedItemId = R.id.ic_dashboard
             actualId = R.id.ic_dashboard

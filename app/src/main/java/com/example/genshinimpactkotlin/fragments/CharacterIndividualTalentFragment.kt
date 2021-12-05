@@ -7,18 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.example.genshinimpactkotlin.R
-import com.example.genshinimpactkotlin.dto.Talents
-import com.example.genshinimpactkotlin.dto.TalentsImages
+import com.example.genshinimpactkotlin.dto.*
+import com.example.genshinimpactkotlin.interfaces.FirebaseCallBack
+import com.google.firebase.database.*
 
 class CharacterIndividualTalentFragment : Fragment() {
     private var talentsList: Talents = Talents()
     private var talentsImagesList: TalentsImages = TalentsImages()
+    private var language: String = "Spanish"
+    private var defaultName: String = ""
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        talentsList = arguments?.get("talents") as Talents
-        talentsImagesList = arguments?.get("talentsImages") as TalentsImages
+        language = arguments!!.getString("language").toString()
+        defaultName = arguments!!.getString("defaultName").toString()
 
     }
 
@@ -32,11 +35,51 @@ class CharacterIndividualTalentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val transaction = parentFragmentManager.beginTransaction()
-        createCombatTalents(transaction)
-        transaction.commit()
+        val mDatabase = FirebaseDatabase.getInstance()
+        readData(object : FirebaseCallBack {
+            override fun onCallback() {
+                if (talentsList.combat1 != null && talentsImagesList.combat1 != null) {
+                    createCombatTalents(transaction)
+                    transaction.commit()
+                }
+            }
+
+        },
+            mDatabase.getReference("Data/$language/talents/$defaultName"),
+            mDatabase.getReference("Image/talents/$defaultName")
+        )
+
+
 
 
     }
+
+    private fun readData(firebaseCallBack: FirebaseCallBack, refTalents: DatabaseReference, refTalentsImage: DatabaseReference) {
+        refTalents.keepSynced(true)
+        refTalents.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                talentsList = snapshot.getValue(Talents::class.java)!!
+                firebaseCallBack.onCallback()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        refTalentsImage.keepSynced(true)
+        refTalentsImage.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                talentsImagesList = snapshot.getValue(TalentsImages::class.java)!!
+                firebaseCallBack.onCallback()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
 
     private fun createCombatTalents(transaction: FragmentTransaction) {
         val talentContainer = R.id.ind_talentContainer

@@ -22,8 +22,8 @@ import kotlin.collections.HashMap
 class WeaponsFragment : Fragment() {
     private val weapons: ArrayList<WeaponImageNameList> = arrayListOf()
     private var rvWeapons: RecyclerView? = null
-    private var weaponListLocal: HashMap<String, Weapon> = hashMapOf()
-    private var weaponImagesListLocal: HashMap<String, WeaponImage> = hashMapOf()
+    private var weaponList: HashMap<String, Weapon> = hashMapOf()
+    private var weaponImagesList: HashMap<String, WeaponImage> = hashMapOf()
     private var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
 
 
@@ -45,8 +45,8 @@ class WeaponsFragment : Fragment() {
          e iniciar "fillWeapons" que necesitará datos de ambas colecciones. */
         readData(object: FirebaseCallBack {
             override fun onCallback() {
-                if (weaponImagesListLocal.isNotEmpty() && weaponListLocal.isNotEmpty()) {
-                    val weaponListSorted: MutableMap<String, Weapon> = TreeMap(weaponListLocal)
+                if (weaponImagesList.isNotEmpty() && weaponList.isNotEmpty()) {
+                    val weaponListSorted: MutableMap<String, Weapon> = TreeMap(weaponList)
                     fillWeapons(weaponListSorted)
                 }
             }
@@ -63,10 +63,10 @@ class WeaponsFragment : Fragment() {
             weapons.add(
                 WeaponImageNameList(
                     it,
-                    weaponListLocal[it]?.name,
-                    weaponListLocal[it]?.weapontype,
-                    weaponListLocal[it]?.rarity,
-                    weaponImagesListLocal[it]?.icon
+                    weaponList[it]?.name,
+                    weaponList[it]?.weapontype,
+                    weaponList[it]?.rarity,
+                    weaponImagesList[it]?.icon
                 )
             )
         }
@@ -82,8 +82,8 @@ class WeaponsFragment : Fragment() {
             override fun onItemClick(defaultName: String, position: Int) {
 
                 val intent = Intent(context, IndividualWeaponActivity::class.java).apply {
-                    putExtra("weapon", weaponListLocal.getValue(defaultName))
-                    putExtra("weaponImage", weaponImagesListLocal.getValue(defaultName))
+                    putExtra("weapon", weaponList.getValue(defaultName))
+                    putExtra("weaponImage", weaponImagesList.getValue(defaultName))
                 }
                 startActivity(intent)
             }
@@ -103,7 +103,7 @@ class WeaponsFragment : Fragment() {
         refWeapons.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
-                    weaponListLocal[it.key.toString()] =
+                    weaponList[it.key.toString()] =
                         Weapon(
                             it.child("name").value.toString(),
                             it.child("weapontype").value.toString(),
@@ -130,7 +130,7 @@ class WeaponsFragment : Fragment() {
         refWeaponImage.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
-                    weaponImagesListLocal[it.key.toString()] =
+                    weaponImagesList[it.key.toString()] =
                         WeaponImage(
                             it.child("icon").value.toString(),
                             it.child("awakenicon").value.toString()

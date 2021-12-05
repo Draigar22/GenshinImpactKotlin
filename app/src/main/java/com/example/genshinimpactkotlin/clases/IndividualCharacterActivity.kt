@@ -29,18 +29,14 @@ class IndividualCharacterActivity : AppCompatActivity() {
         // Segundo fragmento
         val fragmentTalent = CharacterIndividualTalentFragment()
         bundle = Bundle()
-        bundle.putParcelable("talents", intent.extras?.get("talents") as Talents)
-        bundle.putParcelable("talentsImages",
-            intent.extras?.get("talentsImages") as TalentsImages
-        )
+        bundle.putString("language", intent.extras?.getString("language"))
+        bundle.putString("defaultName", intent.extras?.getString("defaultName"))
         fragmentTalent.arguments = bundle
         transaction.add(R.id.ind_containerFragment, fragmentTalent)
 
         transaction.commit()
     }
-
-
-    }
+}
 
 
 

@@ -3,9 +3,7 @@ package com.example.genshinimpactkotlin.dto
 import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 
-@Serializable
 @Parcelize
 @IgnoreExtraProperties
 data class ElementImage(

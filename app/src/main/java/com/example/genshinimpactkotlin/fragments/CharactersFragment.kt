@@ -13,11 +13,12 @@ import com.example.genshinimpactkotlin.clases.CharacterImageNameList
 import com.example.genshinimpactkotlin.R
 import com.example.genshinimpactkotlin.clases.IndividualCharacterActivity
 import com.example.genshinimpactkotlin.dto.*
+import com.example.genshinimpactkotlin.interfaces.FirebaseCallBack
 import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
+class CharactersFragment : Fragment() {
     val characters: ArrayList<CharacterImageNameList> = arrayListOf()
     var rvCharacters: RecyclerView? = null
     var characterList: HashMap<String, Character> = hashMapOf()
@@ -31,13 +32,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         language = arguments?.getString("language").toString()
-        startQuerys(
-            mDatabase.getReference("Data/$language/characters"),
-            mDatabase.getReference("Image")
-        )
-
     }
 
 
@@ -52,11 +47,55 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
         return view
     }
 
-    private fun queryTalents() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
-        queryTalentsInfo(mDatabase.getReference("Data/$language/talents"))
-        queryTalentsImage(mDatabase.getReference("Image/talents"))
+        readData(object: FirebaseCallBack {
+            override fun onCallback() {
+                if (characterList.isNotEmpty() && characterImageList.isNotEmpty()) {
+                    val characterListSorted: MutableMap<String, Character> = TreeMap(characterList)
+                    fillCharacters(characterListSorted)
+                }
+            }
+
+        }, mDatabase.getReference("Data/$language/characters"),
+            mDatabase.getReference("Image"))
     }
+
+    private fun readData(firebaseCallBack: FirebaseCallBack, refCharacters: DatabaseReference, refImage: DatabaseReference) {
+        refCharacters.keepSynced(true)
+        refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach {
+                    characterList[it.key.toString()] = it.getValue(Character::class.java)!!
+                }
+                firebaseCallBack.onCallback()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // TODO HACER ONCANCELLED
+            }
+        })
+
+        refImage.keepSynced(true)
+        refImage.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.child("elements").children.forEach {
+                    elementImageList[it.key.toString()] = it.getValue(ElementImage::class.java)!!
+                }
+                snapshot.child("characters").children.forEach {
+                    characterImageList[it.key.toString()] = it.getValue(CharacterImage::class.java)!!
+                }
+                firebaseCallBack.onCallback()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // TODO HACER ONCANCELLED
+            }
+        })
+
+    }
+
+
 
     private fun initRecycler() {
         val adapter = CharacterAdapter(characters)
@@ -67,8 +106,10 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
                     putExtra("character", characterList.getValue(defaultName))
                     putExtra("characterImage", characterImageList.getValue(defaultName))
                     putExtra("elementImageList", elementImageList)
-                    putExtra("talents", talentsList.getValue(defaultName))
-                    putExtra("talentsImages", talentsImagesList.getValue(defaultName))
+                    putExtra("language", language)
+                    putExtra("defaultName", defaultName)
+//                    putExtra("talents", talentsList.getValue(defaultName))
+//                    putExtra("talentsImages", talentsImagesList.getValue(defaultName))
                 }
                 startActivity(intent)
             }
@@ -92,90 +133,5 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener{
             )
         }
         initRecycler()
-
     }
-
-    private fun initListener() {
-        searchView?.setOnQueryTextListener(this)
-    }
-
-    private fun queryTalentsInfo(refTalents: DatabaseReference) {
-        refTalents.keepSynced(true)
-        refTalents.addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach {
-                        talentsList[it.key.toString()] = it.getValue(Talents::class.java)!!
-                    }
-                }
-
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-    }
-
-    private fun queryTalentsImage(refTalentsImage: DatabaseReference) {
-        refTalentsImage.keepSynced(true)
-        refTalentsImage.addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach {
-                        talentsImagesList[it.key.toString()] = it.getValue(TalentsImages::class.java)!!
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-    }
-    private fun startQuerys(refCharacters: DatabaseReference, refImage: DatabaseReference) {
-        // Consulta a refCharacters
-        refCharacters.keepSynced(true)
-        refImage.keepSynced(true)
-
-        // Consulta a refImage
-        refImage.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.child("elements").children.forEach {
-                    elementImageList[it.key.toString()] = it.getValue(ElementImage::class.java)!!
-                }
-                snapshot.child("characters").children.forEach {
-                    characterImageList[it.key.toString()] = it.getValue(CharacterImage::class.java)!!
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
-            }
-        })
-        refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.forEach {
-                    characterList[it.key.toString()] = it.getValue(Character::class.java)!!
-                }
-                val characterListSorted: MutableMap<String, Character> = TreeMap(characterList)
-                queryTalents()
-                fillCharacters(characterListSorted)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
-            }
-        })
-
-
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
 }
