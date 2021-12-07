@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GenshinImpactKotlin</string>
+    <string name="avatar">Avatar</string>
+    <string name="personajes">Characters</string>
+    <string name="opciones">Settings</string>
+    <string name="principal">Dashboard</string>
+    <string name="example">Example</string>
+    <string name="charge_attack">Charge Attack</string>
+    <string name="plunge_attack">Plunge Attack</string>
+    <string name="normal_attack">Normal Attack</string>
+    <string name="element">Element</string>
+    <string name="weapon">Weapon</string>
+    <string name="talents">Talent</string>
+    <string name="attribute">Attribute</string>
+    <string name="search">Search</string>
+    <string name="themeDarkmode">Dark Mode</string>
+    <string name="theme">Theme</string>
+    <string name="languageAppNavSummary">Change the language of the application navigation</string>
+    <string name="languageAppContentSummary">Change the language of the application content, characters, artifacts</string>
+    <string name="languageAppNav">App language</string>
+    <string name="languageAppContent">Content language</string>
+    <string name="languageSettingsCategory">Language</string>
+    <string name="onepc">1 Piece Effect</string>
+    <string name="fourpc">4 Piece Effect</string>
+    <string name="twopc">2 Piece Effect</string>
+    <string name="artifacts">Artifacts</string>
+    <string name="effectname">Effect</string>
+    <string name="substat">Substat</string>
+    <string name="baseatk">Base Attack</string>
+    <string name="rarity">Rarity</string>
+    <string name="weapontype">Type</string>
+    <string name="weapons">Weapons</string>
+    <string name="messages_header">Messages</string>
+    <string name="accept">Agree</string>
+    <string name="mapAlertDialog">The interactive map is developed by third parties, any action within this section will be at your own risk.</string>
+    <string name="map">Map</string>
+    <string name="description">Description</string>
+    <string name="region">Region</string>
+    <string name="restartApp">To load the changes you need to restart the App</string>
+    <string name="externalContent">External content</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancelled">Access to the map has been canceled</string>
+    <string name="externalContentSummary">Connections to third parties</string>
+</resources>

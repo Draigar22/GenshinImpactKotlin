@@ -53,7 +53,7 @@
                             android:id="@+id/indCharacter_tvCaractElemento1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/elemento"
+                            android:text="@string/element"
                             android:textColor="@color/primaryLightColor"
                             style="@style/mediumTextSize" />
 
@@ -62,7 +62,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/arma"
+                            android:text="@string/weapon"
                             android:textColor="@color/primaryLightColor"
                             style="@style/mediumTextSize"
                             />
@@ -73,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
 
-                            android:text="@string/atributo"
+                            android:text="@string/attribute"
                             android:textColor="@color/primaryLightColor"
                             style="@style/mediumTextSize"
                             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
                             android:id="@+id/indCharacter_tvCharacterElement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/prueba"
+                            android:text="@string/example"
                             style="@style/mediumTextSize"/>
 
                         <TextView
@@ -108,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/prueba"
+                            android:text="@string/example"
                             style="@style/mediumTextSize" />
 
                         <TextView
@@ -117,7 +117,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             style="@style/mediumTextSize"
-                            android:text="@string/prueba"
+                            android:text="@string/example"
                              />
 
                         <TextView
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/prueba"
+                            android:text="@string/example"
                             style="@style/mediumTextSize" />
                     </LinearLayout>
                     <LinearLayout
@@ -158,7 +158,7 @@
                 android:id="@+id/indCharacter_tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prueba"
+                android:text="@string/example"
                 style="@style/normalTextSize"/>
         </LinearLayout>
 
@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginStart="8dp"
-            android:text="@string/prueba"
+            android:text="@string/example"
             style="@style/capitalTextSize"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

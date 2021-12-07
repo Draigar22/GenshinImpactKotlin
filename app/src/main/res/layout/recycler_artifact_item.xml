@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
-                        android:text="@string/prueba"
+                        android:text="@string/example"
 
                         android:layout_marginBottom="10dp"/>
 
@@ -79,14 +79,14 @@
                         android:textAlignment="center"
                         android:visibility="gone"
                         style="@style/smallTextSize"
-                        android:text="@string/prueba" />
+                        android:text="@string/example" />
 
                     <TextView
                         android:id="@+id/tvTwoPcEffect"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/smallTextSize"
-                        android:text="@string/prueba"
+                        android:text="@string/example"
                         android:textAlignment="center"/>
 
                     <TextView
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         style="@style/smallTextSize"
-                        android:text="@string/prueba" />
+                        android:text="@string/example" />
                 </LinearLayout>
 
         </LinearLayout>

@@ -76,7 +76,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
+                println("ERROR")
             }
         })
 
@@ -93,7 +93,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
+                println("ERROR")
             }
         })
 

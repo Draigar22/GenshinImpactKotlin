@@ -9,7 +9,7 @@
         android:id="@+id/ind_tvTalents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/talentos"
+        android:text="@string/talents"
         android:textAlignment="center"
         style="@style/capitalTextSize"
         android:textStyle="bold"

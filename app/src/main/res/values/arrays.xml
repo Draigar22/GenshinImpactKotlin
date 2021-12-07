@@ -9,4 +9,44 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="languageAppContent_entries">
+        <item>Español</item>
+        <item>English</item>
+        <item>汉语</item>
+        <item>漢語</item>
+        <item>Deutsch</item>
+        <item>ahasa Indonesia</item>
+        <item>日本語</item>
+        <item>한국어</item>
+        <item>Português</item>
+        <item>русский</item>
+        <item>ภาษาไทย</item>
+        <item>tiếng Việt</item>
+    </string-array>
+
+    <string-array name="languageAppContent_values">
+        <item>Spanish</item>
+        <item>English</item>
+        <item>ChineseSimplified</item>
+        <item>ChineseTraditional</item>
+        <item>German</item>
+        <item>Indonesian</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Thai</item>
+        <item>Vietnamese</item>
+    </string-array>
+
+
+    <string-array name="languageAppNav_entries">
+        <item>Español</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="languageAppNav_values">
+        <item>es</item>
+        <item>en</item>
+    </string-array>
 </resources>

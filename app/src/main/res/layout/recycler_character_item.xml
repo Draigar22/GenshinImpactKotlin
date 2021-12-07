@@ -46,7 +46,7 @@
     <TextView
         android:id="@+id/tvCharacterName"
         android:layout_width="match_parent"
-        android:layout_height="31sp"
+        android:layout_height="wrap_content"
         android:text="Sangonomiya Kokomi"
         android:textAlignment="center"
         style="@style/smallTextSize" />

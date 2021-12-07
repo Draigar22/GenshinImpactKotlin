@@ -1,10 +1,13 @@
 package com.example.genshinimpactkotlin.fragments
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,14 +40,17 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
         return inflater.inflate(R.layout.fragment_weapons, container, false);
     }
 
+    /**
+     *  Cuando "weaponImagesListLocal" y "weaponListLocal" no estén vacías significará que
+     *  ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "weaponListLocal"
+     *  e iniciar "fillWeapons" que necesitará datos de ambas colecciones.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         rvWeapons = view.findViewById(R.id.rvWeapons)
         searchView = view.findViewById(R.id.searchViewWeapon)
         initListener()
-        /* Cuando "weaponImagesListLocal" y "weaponListLocal" no estén vacías significará que
-         ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "weaponListLocal"
-         e iniciar "fillWeapons" que necesitará datos de ambas colecciones. */
+
         readData(object: FirebaseCallBack {
             override fun onCallback() {
                 if (weaponImagesList.isNotEmpty() && weaponList.isNotEmpty()) {

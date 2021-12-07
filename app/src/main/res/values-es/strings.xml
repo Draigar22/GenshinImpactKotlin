@@ -48,8 +48,8 @@
     <string name="themeDarkmode">Modo oscuro</string>
     <string name="restartApp">Para cargar los cambios se necesita reiniciar la App</string>
     <string name="externalContent">Contenido externo</string>
-    <string name="externalContentSummary">Conexiones a terceros</string>
     <string name="cancel">Cancelar</string>
     <string name="cancelled">Se ha cancelado el acceso al mapa</string>
+    <string name="externalContentSummary">Conexiones a terceros</string>
 
 </resources>

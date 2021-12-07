@@ -90,7 +90,7 @@
                         style="@style/mediumTextSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/prueba" />
+                        android:text="@string/example" />
 
                     <TextView
                         android:id="@+id/indWeapon_tvRarity"
@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@string/prueba" />
+                        android:text="@string/example" />
 
                     <TextView
                         android:id="@+id/indWeapon_tvBaseAttack"
@@ -106,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@string/prueba" />
+                        android:text="@string/example" />
 
                     <TextView
                         android:id="@+id/indWeapon_tvSubStat"
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@string/prueba" />
+                        android:text="@string/example" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -137,7 +137,7 @@
                 style="@style/normalTextSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prueba" />
+                android:text="@string/example" />
 
             <TextView
                 android:id="@+id/indWeapon_tvEffectName"
@@ -154,7 +154,7 @@
                 style="@style/normalTextSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prueba"
+                android:text="@string/example"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -181,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginStart="8dp"
-            android:text="@string/prueba"
+            android:text="@string/example"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

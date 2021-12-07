@@ -1,35 +1,49 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/languageSettingsCategory"
+        app:icon="@drawable/ic_baseline_language_24">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+<!--        <ListPreference-->
+<!--            app:defaultValue="en"-->
+<!--            app:entries="@array/languageAppNav_entries"-->
+<!--            app:entryValues="@array/languageAppNav_values"-->
+<!--            app:key="languageAppNav"-->
+<!--            app:title="@string/languageAppNav"-->
+<!--            app:useSimpleSummaryProvider="true"-->
+<!--            android:summary="@string/languageAppNavSummary"-->
 
+<!--            />-->
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+            app:defaultValue="Spanish"
+            app:entries="@array/languageAppContent_entries"
+            app:entryValues="@array/languageAppContent_values"
+            app:key="languageAppContent"
+            app:title="@string/languageAppContent"
+            app:useSimpleSummaryProvider="true"
+            android:summary="@string/languageAppContentSummary"
+            />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/theme"
+        app:icon="@drawable/ic_baseline_dark_mode_24">
 
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+            app:key="theme"
+            app:title="@string/themeDarkmode"
+            />
 
     </PreferenceCategory>
+    <PreferenceCategory app:title="@string/externalContent"
+        app:icon="@drawable/ic_baseline_cast_connected_24"
+        android:summary="@string/externalContentSummary">
 
+        <SwitchPreferenceCompat
+            app:key="map"
+            app:title="@string/map"
+            app:defaultValue="false"/>
+
+    </PreferenceCategory>
 </PreferenceScreen>
