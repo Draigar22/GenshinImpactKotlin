@@ -16,9 +16,9 @@ class IndividualWeaponActivity : AppCompatActivity() {
         setContentView(R.layout.activity_individual_template)
         val transaction = supportFragmentManager.beginTransaction()
 
-        // Primer fragmento
+        // Fragmento WeaponIndividualInfoFragment
         val fragmentStat = WeaponIndividualInfoFragment()
-        var bundle = Bundle()
+        val bundle = Bundle()
         bundle.putParcelable("weapon", intent.extras?.get("weapon") as Weapon)
         bundle.putParcelable("weaponImage", intent.extras?.get("weaponImage") as WeaponImage)
         fragmentStat.arguments = bundle

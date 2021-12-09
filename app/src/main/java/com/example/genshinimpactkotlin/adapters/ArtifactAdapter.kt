@@ -1,5 +1,6 @@
 package com.example.genshinimpactkotlin.adapters
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -18,29 +19,18 @@ class ArtifactAdapter(val artifacts: ArrayList<ArtifactImageName>):
     RecyclerView.Adapter<ArtifactAdapter.WeaponHolder>() {
 
 
-    private lateinit var mListener : onItemClickListener
     private var originalArtifacts: ArrayList<ArtifactImageName> = ArrayList(artifacts)
 
-    interface onItemClickListener {
-        fun onItemClick(defaultName: String, position: Int) {
 
-        }
-    }
-//
-//    fun setOnItemClickListener(listener: onItemClickListener){
-//        mListener = listener
-//    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeaponHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             return WeaponHolder(
                 layoutInflater.inflate(R.layout.recycler_artifact_item, parent, false))
-                //mListener)
-
-
     }
 
     override fun getItemCount(): Int = artifacts.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun filterName(name: String) {
         if (name.isEmpty()) {
             artifacts.clear()
@@ -104,11 +94,6 @@ class ArtifactAdapter(val artifacts: ArrayList<ArtifactImageName>):
             view.findViewById<TextView>(R.id.tvOnePcEffect).visibility = View.GONE
             view.findViewById<TextView>(R.id.tvOnePcEffect1).visibility = View.GONE
         }
-//        init {
-//            itemView.setOnClickListener{
-//                listener.onItemClick(defaultName!!, position!!)
-//            }
-//        }
     }
 
 

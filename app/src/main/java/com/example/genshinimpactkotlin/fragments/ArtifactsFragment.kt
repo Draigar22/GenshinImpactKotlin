@@ -16,11 +16,12 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class ArtifactsFragment : Fragment(), SearchView.OnQueryTextListener {
+
     private val artifacts: ArrayList<ArtifactImageName> = arrayListOf()
     private var rvArtifacts: RecyclerView? = null
     private var artifactList: HashMap<String, Artifact> = hashMapOf()
     private var artifactImagesList: HashMap<String, ArtifactImage> = hashMapOf()
-    private var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
+    private var language = ""
     private var searchView: SearchView? = null
     private var artifactAdapter: ArtifactAdapter? = null
 
@@ -31,17 +32,19 @@ class ArtifactsFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View {
         language = arguments?.getString("language").toString()
-        return inflater.inflate(R.layout.fragment_artifacts, container, false);
+        return inflater.inflate(R.layout.fragment_artifacts, container, false)
     }
 
+    /** Cuando "artifactImagesList" y "artifactList" no estén vacías significará que
+     *  ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "artifactList"
+     *  e iniciar "fillArtifacts" que necesitará datos de ambas colecciones.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         rvArtifacts = view.findViewById(R.id.rvArtifacts)
         searchView = view.findViewById(R.id.searchViewArtifact)
         initListener()
-        /* Cuando "artifactImagesListLocal" y "artifactListLocal" no estén vacías significará que
-         ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "artifactListLocal"
-         e iniciar "fillartifacts" que necesitará datos de ambas colecciones. */
+
         readData(object: FirebaseCallBack {
             override fun onCallback() {
                 if (artifactImagesList.isNotEmpty() && artifactList.isNotEmpty()) {
@@ -82,19 +85,9 @@ class ArtifactsFragment : Fragment(), SearchView.OnQueryTextListener {
      */
     private fun initRecycler() {
         artifactAdapter = ArtifactAdapter(artifacts)
-//        artifactAdapter!!.setOnItemClickListener(object : Art.onItemClickListener {
-//            override fun onItemClick(defaultName: String, position: Int) {
-//
-//                val intent = Intent(context, IndividualartifactActivity::class.java).apply {
-//                    putExtra("artifact", artifactList.getValue(defaultName))
-//                    putExtra("artifactImage", artifactImagesList.getValue(defaultName))
-//                }
-//                startActivity(intent)
-//            }
-//        })
 
         rvArtifacts?.adapter = artifactAdapter
-        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(480));
+        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(480))
         rvArtifacts?.layoutManager = columns?.let { GridLayoutManager(context, it) }
     }
 
@@ -114,7 +107,6 @@ class ArtifactsFragment : Fragment(), SearchView.OnQueryTextListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
             }
         })
         refartifacts.keepSynced(true)
@@ -128,21 +120,30 @@ class ArtifactsFragment : Fragment(), SearchView.OnQueryTextListener {
 
             }
             override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
             }
         })
 
     }
+
     private fun initListener() {
         searchView?.setOnQueryTextListener(this)
     }
+
+    /**
+     * @param query
+     * Cada vez que el texto del "SearchView" se envía se ejecuta filtrando por query:String
+     */
     override fun onQueryTextSubmit(query: String?): Boolean {
         artifactAdapter?.filterName(query!!)
         return false
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        artifactAdapter?.filterName(newText!!)
+    /**
+     * @param query
+     * Cada vez que el texto del "SearchView" cambia se ejecuta  filtrando por query:String
+     */
+    override fun onQueryTextChange(query: String?): Boolean {
+        artifactAdapter?.filterName(query!!)
         return false
     }
 }

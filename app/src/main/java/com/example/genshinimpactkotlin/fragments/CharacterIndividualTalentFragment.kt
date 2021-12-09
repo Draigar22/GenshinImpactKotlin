@@ -14,14 +14,14 @@ import com.google.firebase.database.*
 class CharacterIndividualTalentFragment : Fragment() {
     private var talentsList: Talents = Talents()
     private var talentsImagesList: TalentsImages = TalentsImages()
-    private var language: String = "Spanish"
+    private var language: String = ""
     private var defaultName: String = ""
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        language = arguments!!.getString("language").toString()
-        defaultName = arguments!!.getString("defaultName").toString()
+        language = requireArguments().getString("language").toString()
+        defaultName = requireArguments().getString("defaultName").toString()
 
     }
 
@@ -29,10 +29,14 @@ class CharacterIndividualTalentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_character_individual_talents, container, false)
     }
 
+    /**
+     *  Cuando "talentsImagesList" y "talentsList" no estén vacías significará que
+     *  ambas querys han sido realizadas, con lo cual se puede proceder e iniciar
+     *  "createCombatTalents()" que necesitará datos de ambas colecciones y mostrará los fragmentos.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val transaction = parentFragmentManager.beginTransaction()
         val mDatabase = FirebaseDatabase.getInstance()
@@ -48,12 +52,13 @@ class CharacterIndividualTalentFragment : Fragment() {
             mDatabase.getReference("Data/$language/talents/$defaultName"),
             mDatabase.getReference("Image/talents/$defaultName")
         )
-
-
-
-
     }
 
+    /**
+     * Este método se utiliza de forma auxiliar para utilizar la interface "FirebaseCallBack"
+     * que se llama al final de cada query.
+     * Dentro se realizan 2 Querys independientes a la base de datos
+     */
     private fun readData(firebaseCallBack: FirebaseCallBack, refTalents: DatabaseReference, refTalentsImage: DatabaseReference) {
         refTalents.keepSynced(true)
         refTalents.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -61,9 +66,7 @@ class CharacterIndividualTalentFragment : Fragment() {
                 talentsList = snapshot.getValue(Talents::class.java)!!
                 firebaseCallBack.onCallback()
             }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            override fun onCancelled(error: DatabaseError) {}
 
         })
         refTalentsImage.keepSynced(true)
@@ -73,14 +76,17 @@ class CharacterIndividualTalentFragment : Fragment() {
                 firebaseCallBack.onCallback()
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            override fun onCancelled(error: DatabaseError) {}
 
         })
     }
 
 
+    /**
+     * @param transaction
+     * Crea 3 fragmentos ItemtalentFrament() llamando a su método "newInstance()" enviándole
+     * la información necesaria.
+     */
     private fun createCombatTalents(transaction: FragmentTransaction) {
         val talentContainer = R.id.ind_talentContainer
         transaction.add(talentContainer, ItemTalentFragment.newInstance(

@@ -33,6 +33,7 @@
         <SwitchPreferenceCompat
             app:key="theme"
             app:title="@string/themeDarkmode"
+            android:defaultValue="true"
             />
 
     </PreferenceCategory>

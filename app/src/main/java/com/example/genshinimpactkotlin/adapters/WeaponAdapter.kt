@@ -1,5 +1,6 @@
 package com.example.genshinimpactkotlin.adapters
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,7 @@ class WeaponAdapter(val weapons: ArrayList<WeaponImageName>):
 
     override fun getItemCount(): Int = weapons.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun filterName(name: String) {
         if (name.isEmpty()) {
             weapons.clear()

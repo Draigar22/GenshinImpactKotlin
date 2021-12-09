@@ -26,7 +26,7 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var rvWeapons: RecyclerView? = null
     private var weaponList: HashMap<String, Weapon> = hashMapOf()
     private var weaponImagesList: HashMap<String, WeaponImage> = hashMapOf()
-    private var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
+    private var language = ""
     private var searchView: SearchView? = null
     private var weaponAdapter: WeaponAdapter? = null
 
@@ -37,11 +37,11 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
         savedInstanceState: Bundle?
     ): View {
         language = arguments?.getString("language").toString()
-        return inflater.inflate(R.layout.fragment_weapons, container, false);
+        return inflater.inflate(R.layout.fragment_weapons, container, false)
     }
 
     /**
-     *  Cuando "weaponImagesListLocal" y "weaponListLocal" no estén vacías significará que
+     *  Cuando "weaponImagesList" y "weaponList" no estén vacías significará que
      *  ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "weaponListLocal"
      *  e iniciar "fillWeapons" que necesitará datos de ambas colecciones.
      */
@@ -56,6 +56,7 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
                 if (weaponImagesList.isNotEmpty() && weaponList.isNotEmpty()) {
                     val weaponListSorted: MutableMap<String, Weapon> = TreeMap(weaponList)
                     fillWeapons(weaponListSorted)
+                    println("HOLA NO TIENE SENTIDO" + weaponList + " " + weaponImagesList)
                 }
             }
         }, mDatabase.getReference("Data/$language/weapons"), mDatabase.getReference("Image/weapons"))
@@ -98,7 +99,7 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
         })
 
         rvWeapons?.adapter = weaponAdapter
-        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(270));
+        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(270))
         rvWeapons?.layoutManager = columns?.let { GridLayoutManager(context, it) }
     }
 
@@ -107,6 +108,7 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
      * que se llama al final de cada query.
      * Dentro se realizan 2 Querys independientes a la base de datos
      */
+    @Suppress("UNCHECKED_CAST")
     private fun readData(firebaseCallBack: FirebaseCallBack, refWeapons: DatabaseReference, refWeaponImage: DatabaseReference) {
         refWeapons.keepSynced(true)
         refWeapons.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -132,7 +134,7 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
+
             }
         })
         refWeapons.keepSynced(true)
@@ -150,21 +152,31 @@ class WeaponsFragment : Fragment(), SearchView.OnQueryTextListener {
 
             }
             override fun onCancelled(error: DatabaseError) {
-                // TODO HACER ONCANCELLED
+
             }
         })
 
     }
+
     private fun initListener() {
         searchView?.setOnQueryTextListener(this)
     }
+
+    /**
+     * @param query
+     * Cada vez que el texto del "SearchView" se envía se ejecuta filtrando por query:String
+     */
     override fun onQueryTextSubmit(query: String?): Boolean {
         weaponAdapter?.filterName(query!!)
         return false
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        weaponAdapter?.filterName(newText!!)
+    /**
+     * @param query
+     * Cada vez que el texto del "SearchView" cambia se ejecuta  filtrando por query:String
+     */
+    override fun onQueryTextChange(query: String?): Boolean {
+        weaponAdapter?.filterName(query!!)
         return false
     }
 }

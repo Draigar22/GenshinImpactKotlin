@@ -1,5 +1,6 @@
 package com.example.genshinimpactkotlin.adapters
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +16,10 @@ import java.util.stream.Collectors
 
 
 class CharacterAdapter(
-    val characters: ArrayList<CharacterImageName>
+    private val characters: ArrayList<CharacterImageName>
 ):
 
     RecyclerView.Adapter<CharacterAdapter.CharacterHolder>() {
-
 
     private lateinit var mListener : onItemClickListener
     private var originalCharacters: ArrayList<CharacterImageName> = ArrayList(characters)
@@ -44,6 +44,7 @@ class CharacterAdapter(
 
     override fun getItemCount(): Int = characters.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun filterName(name: String) {
         if (name.isEmpty()) {
             characters.clear()

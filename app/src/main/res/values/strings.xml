@@ -5,7 +5,6 @@
     <string name="personajes">Personajes</string>
     <string name="opciones">Opciones</string>
     <string name="principal">Principal</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="example">Prueba</string>
     <string name="attribute">Atributo</string>
     <string name="weapon">Arma</string>
@@ -20,16 +19,7 @@
     <string name="mapAlertDialog">El mapa interactivo está desarrollado por terceros, cualquier acción dentro de este apartado será bajo su propia responsabilidad.</string>
     <string name="accept">Aceptar</string>
     <string name="weapons">Armas</string>
-    <!-- Preference Titles -->
     <string name="messages_header">Mensajes</string>
-
-    <!-- Messages Preferences -->
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
     <string name="weapontype">Tipo</string>
     <string name="rarity">Rareza</string>
     <string name="baseatk">Ataque Base</string>
@@ -43,7 +33,7 @@
     <string name="languageAppNav">Idioma de la aplicación</string>
     <string name="languageAppContent">Idioma del contenido</string>
     <string name="languageAppNavSummary">Cambia el idioma de la navegación de la aplicación</string>
-    <string name="languageAppContentSummary">Cambia el idioma del contenido de la aplicación, personajes, artefactos...</string>
+    <string name="languageAppContentSummary">Cambia el idioma del contenido de la aplicación, personajes, artefactos…</string>
     <string name="theme">Tema</string>
     <string name="themeDarkmode">Modo oscuro</string>
     <string name="restartApp">Para cargar los cambios se necesita reiniciar la App</string>

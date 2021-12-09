@@ -19,33 +19,33 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
-    val characters: ArrayList<CharacterImageName> = arrayListOf()
-    var rvCharacters: RecyclerView? = null
-    var characterList: HashMap<String, Character> = hashMapOf()
-    var characterImageList: HashMap<String, CharacterImage> = hashMapOf()
-    var elementImageList: HashMap<String, ElementImage> = hashMapOf()
-    var language = "Spanish" // TODO IMPLEMENTAR FUNCIONALIDAD
-    var searchView : SearchView? = null
+    private val characters: ArrayList<CharacterImageName> = arrayListOf()
+    private var rvCharacters: RecyclerView? = null
+    private var characterList: HashMap<String, Character> = hashMapOf()
+    private var characterImageList: HashMap<String, CharacterImage> = hashMapOf()
+    private var elementImageList: HashMap<String, ElementImage> = hashMapOf()
+    private var language = ""
+    private var searchView : SearchView? = null
     private var characterAdapter: CharacterAdapter? = null
-
-    @Suppress("UNCHECKED_CAST")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        language = arguments?.getString("language").toString()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view:View = inflater.inflate(R.layout.fragment_characters, container, false);
-        rvCharacters = view.findViewById(R.id.rvCharacter)
+        val view:View = inflater.inflate(R.layout.fragment_characters, container, false)
+        language = arguments?.getString("language").toString()
         return view
     }
 
+
+    /**
+     *  Cuando "characterImageList" y "characterList" no estén vacías significará que
+     *  ambas querys han sido realizadas, con lo cual se puede proceder a ordenar "characterList"
+     *  e iniciar "fillCharacters" que necesitará datos de ambas colecciones.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        rvCharacters = view.findViewById(R.id.rvCharacter)
         val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         searchView = view.findViewById(R.id.searchViewCharacters)
         initListener()
@@ -65,6 +65,11 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
         searchView?.setOnQueryTextListener(this)
     }
 
+    /**
+     * Este método se utiliza de forma auxiliar para utilizar la interface "FirebaseCallBack"
+     * que se llama al final de cada query.
+     * Dentro se realizan 2 Querys independientes a la base de datos
+     */
     private fun readData(firebaseCallBack: FirebaseCallBack, refCharacters: DatabaseReference, refImage: DatabaseReference) {
         refCharacters.keepSynced(true)
         refCharacters.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -117,7 +122,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         })
         rvCharacters?.adapter = characterAdapter
-        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(270));
+        val columns = (((context?.resources?.displayMetrics?.widthPixels))?.div(270))
         rvCharacters?.layoutManager = columns?.let { GridLayoutManager(context, it) }
 
     }

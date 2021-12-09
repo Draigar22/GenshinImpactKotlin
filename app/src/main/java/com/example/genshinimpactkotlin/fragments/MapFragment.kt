@@ -16,6 +16,7 @@ import androidx.preference.PreferenceManager
 
 class MapFragment : Fragment() {
 
+    private val URL = "https://mapgenie.io/genshin-impact/maps/teyvat"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +25,10 @@ class MapFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
+    /**
+     * Se carga desde "Settings" si el contenido externo de "Mapa" está habilitado, de no estarlo
+     * este muestra un AlerDialog preguntando si quieres acceder.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sp = PreferenceManager.getDefaultSharedPreferences(context)
         val mapExternalAccept = sp.getBoolean("map", false)
@@ -50,15 +55,17 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * @param view
+     * Se inicializa el WebView con la URL indicada
+     */
     @SuppressLint("SetJavaScriptEnabled")
     private fun accessMap(view: View) {
         val myWebView = view.findViewById<WebView>(R.id.map_interactiveMap)
         myWebView.webChromeClient = WebChromeClient()
         myWebView.apply {
-            myWebView.loadUrl("https://mapgenie.io/genshin-impact/maps/teyvat")
+            myWebView.loadUrl(URL)
             settings.javaScriptEnabled = true
         }
     }
-
-
 }

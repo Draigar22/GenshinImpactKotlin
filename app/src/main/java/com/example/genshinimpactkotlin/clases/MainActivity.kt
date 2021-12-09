@@ -16,6 +16,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+
     private val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private var actualId: Int = -10
 
@@ -26,8 +27,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val bn: BottomNavigationView = findViewById(R.id.bottom_navigation)
         val languageBundle = Bundle()
-        languageBundle.putString("language", languageSettings())
+
+        // Primera vez que se crea el main activity
         if (savedInstanceState == null) {
+            languageBundle.putString("language", languageSettings())
             darkMode()
             mDatabase.setPersistenceEnabled(true)
             val fragment = CharactersFragment()
@@ -82,12 +85,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * @param fragment es reemplazado por el anterior
+     */
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
 
+    /**
+     * Cuando se va hacia atrás automáticamente te lleva al apartado "Characters", si estás en el
+     * se cierra la App
+     */
     override fun onBackPressed() {
         val bn:BottomNavigationView = findViewById(R.id.bottom_navigation)
         if (bn.selectedItemId == R.id.ic_characters) {
@@ -98,15 +108,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Consulta el idioma configurado en "Opciones" y devuelve el valor.
+     */
     private fun languageSettings(): String {
         val sp = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        return sp.getString("languageAppContent", "").toString()
+        val language = sp.getString("languageAppContent", "").toString()
+        if (language.isBlank())
+            return "Spanish"
+        else
+            return language
 
     }
 
+    /**
+     * Consulta el tema configurado (Oscudo o Blanco), por predeterminado y la primera vez
+     * será oscuro.
+     */
     private fun darkMode() {
         val sp = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val darkMode = sp.getBoolean("theme", false)
+        val darkMode = sp.getBoolean("theme", true)
         if (darkMode)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         else

@@ -13,8 +13,8 @@ import com.example.genshinimpactkotlin.entidades.*
 import com.squareup.picasso.Picasso
 
 class WeaponIndividualInfoFragment : Fragment() {
-    var weapon: Weapon = Weapon()
-    var weaponImage: WeaponImage = WeaponImage()
+    private var weapon: Weapon = Weapon()
+    private var weaponImage: WeaponImage = WeaponImage()
 
 
     @Suppress("UNCHECKED_CAST")
@@ -28,7 +28,7 @@ class WeaponIndividualInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_weapon_individual_info, container, false);
+        return inflater.inflate(R.layout.fragment_weapon_individual_info, container, false)
     }
 
 

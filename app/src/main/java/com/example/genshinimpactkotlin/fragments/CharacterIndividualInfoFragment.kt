@@ -13,24 +13,28 @@ import com.example.genshinimpactkotlin.entidades.*
 import com.squareup.picasso.Picasso
 
 class CharacterIndividualInfoFragment : Fragment() {
-    var character: Character = Character()
-    var characterImage: CharacterImage = CharacterImage()
-    var elementListImage: HashMap <String,ElementImage> = hashMapOf()
+    private var character: Character = Character()
+    private var characterImage: CharacterImage = CharacterImage()
+    private var elementListImage: HashMap <String,ElementImage> = hashMapOf()
 
 
     @Suppress("UNCHECKED_CAST")
+    /**
+     * Carga los datos de arguments en las variables locales
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         character = arguments?.get("character") as Character
         characterImage = arguments?.get("characterImage") as CharacterImage
         elementListImage = arguments?.get("elementImageList") as HashMap<String, ElementImage>
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_character_individual_info, container, false);
+        return inflater.inflate(R.layout.fragment_character_individual_info, container, false)
     }
 
 
@@ -38,6 +42,9 @@ class CharacterIndividualInfoFragment : Fragment() {
         fillCharacter(view)
     }
 
+    /**
+     * Carga los datos de "character" en las views correspondientes
+     */
     private fun fillCharacter(view: View) {
         view.findViewById<TextView>(R.id.indCharacter_tvCharacterName).text = character.name
         view.findViewById<TextView>(R.id.indCharacter_tvCharacterRegion).text = character.region
@@ -54,8 +61,11 @@ class CharacterIndividualInfoFragment : Fragment() {
                 characterImage.portrait).into(view.findViewById<ImageView>(R.id.indCharacter_ivCharacterImage))
     }
 
+    /**
+     * Busca en "elementListImage" el elemento correspondiente con "character" y devuelve el valor
+     * de wikia, que es una url de una imagen
+     */
     private fun searchElement(): String? {
-
         elementListImage.keys.forEach {
             if (it == character.element?.lowercase()) {
                 return elementListImage[it]?.wikia
